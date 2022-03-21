@@ -8,6 +8,7 @@
         "laravel"
     ],
     "homepage": "https://alphasnow.github.io/aliyun-oss-appserver/",
+    "license": "MIT",
     "authors": [
         {
             "name": "alphasnow",
