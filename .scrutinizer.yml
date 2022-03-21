@@ -1,0 +1,18 @@
+checks:
+    php: true
+
+build:
+    environment:
+        php:
+            version: '8.0.2'
+        variables:
+            XDEBUG_MODE: coverage
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
+
+tools:
+    external_code_coverage:
+        timeout: 600
