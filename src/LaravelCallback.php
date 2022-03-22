@@ -19,7 +19,7 @@ class LaravelCallback
     /**
      * @param Callback $callback
      */
-    public function __construct(Callback $callback,Request $request)
+    public function __construct(Callback $callback, Request $request)
     {
         $this->callback = $callback;
         $this->request = $request;
