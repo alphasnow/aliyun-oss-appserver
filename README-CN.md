@@ -41,7 +41,7 @@ use AlphaSnow\OSS\AppServer\StrandCallback;
 $status = (new StrandCallback(new Callback))->verifyByRequest();
 ```
 
-## 配置参数
+### 配置参数
 ```php
 // 修改直传服务器地址
 $token->access()->setOssHost("https://wx-static.oss-cn-hangzhou.aliyuncs.com");

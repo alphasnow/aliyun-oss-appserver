@@ -41,7 +41,7 @@ use AlphaSnow\OSS\AppServer\StrandCallback;
 $status = (new StrandCallback(new Callback))->verifyByRequest();
 ```
 
-## Change Parameters
+### Change Parameters
 ```php
 // Change the address of the direct transmission server
 $token->access()->setOssHost("https://wx-static.oss-cn-hangzhou.aliyuncs.com");
