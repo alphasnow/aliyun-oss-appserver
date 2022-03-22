@@ -8,6 +8,7 @@
 [![License](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/license)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
 [![Build Status](https://github.com/alphasnow/aliyun-oss-appserver/workflows/CI/badge.svg)](https://github.com/alphasnow/aliyun-oss-appserver/actions)
 
+
 ## 安装依赖
 ```bash
 composer require "alphasnow/aliyun-oss-appserver"
@@ -24,7 +25,7 @@ return response()->json($data);
 ```php
 use AlphaSnow\OSS\AppServer\LaravelCallback;
 
-$status = app(LaravelCallback::class)->verifyByRequest(request());
+$status = app(LaravelCallback::class)->verifyByRequest();
 ```
 
 ### 其他项目

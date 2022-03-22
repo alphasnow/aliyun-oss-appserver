@@ -24,7 +24,7 @@ return response()->json($token->reponse());
 ```php
 use AlphaSnow\OSS\AppServer\LaravelCallback;
 
-$status = app(LaravelCallback::class)->verifyByRequest(request());
+$status = app(LaravelCallback::class)->verifyByRequest();
 ```
 
 ### Other Project

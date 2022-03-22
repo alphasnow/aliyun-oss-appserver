@@ -12,24 +12,30 @@ class LaravelCallback
     protected $callback;
 
     /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
      * @param Callback $callback
      */
-    public function __construct(Callback $callback)
+    public function __construct(Callback $callback,Request $request)
     {
         $this->callback = $callback;
+        $this->request = $request;
     }
 
     /**
      * @param Request $request
      * @return bool
      */
-    public function verifyByRequest(Request $request)
+    public function verifyByRequest()
     {
         return $this->callback->verify(
-            $request->server(Callback::KEY_AUTH),
-            $request->server(Callback::KEY_PUB),
-            $request->server(Callback::KEY_URI),
-            $request->getContent()
+            $this->request->server(Callback::KEY_AUTH),
+            $this->request->server(Callback::KEY_PUB),
+            $this->request->server(Callback::KEY_URI),
+            $this->request->getContent()
         );
     }
 }
