@@ -13,6 +13,24 @@ Ali cloud server signature direct transmission and set up the call back
 composer require "alphasnow/aliyun-oss-appserver"
 ```
 
+## Configuration
+Modify the environment file `.env`
+```
+OSS_ACCESS_KEY_ID=<Your aliyun accessKeyId, Required>
+OSS_ACCESS_KEY_SECRET=<Your aliyun accessKeySecret, Required>
+OSS_BUCKET=<Your oss bucket name, Required>
+OSS_ENDPOINT=<Your oss endpoint domain, Required>
+OSS_CALLBACK_URL=<Default callback address, Required>
+OSS_POLICY_MAX_SIZE=<Default maximum file size 1 GB, Optional>
+OSS_POLICY_EXPIRE_TIME=<Default expiration time 60s, Optional>
+OSS_POLICY_USER_DIR=<Default Upload Directory upload/, Optional>
+```
+
+(Optional) Modify the config file `config/oss-appserver.php`
+```bash
+php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
+```
+
 ## Usage
 ### Laravel Project
 ```php
@@ -41,7 +59,7 @@ use AlphaSnow\OSS\AppServer\StrandCallback;
 $status = (new StrandCallback(new Callback))->verifyByRequest();
 ```
 
-### Change Parameters
+### Dynamic configuration
 ```php
 // Change the address of the direct transmission server
 $token->access()->setOssHost("https://wx-static.oss-cn-hangzhou.aliyuncs.com");

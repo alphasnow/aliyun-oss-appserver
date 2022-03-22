@@ -26,7 +26,6 @@ class LaravelCallback
     }
 
     /**
-     * @param Request $request
      * @return bool
      */
     public function verifyByRequest()
