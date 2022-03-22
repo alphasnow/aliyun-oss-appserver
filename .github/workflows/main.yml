@@ -15,7 +15,7 @@ jobs:
             - name: Setup PHP environment
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.0'
+                  php-version: '7.2'
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-progress
@@ -31,7 +31,7 @@ jobs:
             - name: Setup PHP environment
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.0'
+                  php-version: '7.2'
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-progress
@@ -42,7 +42,7 @@ jobs:
     phpunit:
         strategy:
             matrix:
-                php-versions: ['8.0']
+                php-versions: ['7.2']
         runs-on: ubuntu-18.04
         steps:
             - uses: actions/checkout@v2
