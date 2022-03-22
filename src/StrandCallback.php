@@ -2,8 +2,6 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-use Illuminate\Http\Request;
-
 class StrandCallback
 {
     /**
