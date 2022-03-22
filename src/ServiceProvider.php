@@ -27,9 +27,5 @@ class ServiceProvider extends BaseServiceProvider
             $config = $app->make('config')->get('oss-appserver');
             return $appServer->makeCallbackParam($config);
         });
-
-        // $this->app->extend(Callback::class, function ($service, $app) {
-        //     return new LaravelCallback($service);
-        // });
     }
 }
