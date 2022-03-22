@@ -4,6 +4,10 @@ namespace AlphaSnow\OSS\AppServer;
 
 class Callback
 {
+    const KEY_AUTH = "HTTP_AUTHORIZATION";
+    const KEY_PUB = "HTTP_X_OSS_PUB_KEY_URL";
+    const KEY_URI = "REQUEST_URI";
+
     /**
      * @param string $authorizationBase64 $_SERVER['HTTP_AUTHORIZATION']
      * @param string $pubKeyUrlBase64 $_SERVER['HTTP_X_OSS_PUB_KEY_URL']
@@ -52,12 +56,11 @@ class Callback
     protected function buildAuthStr($requestUri, $requestBody)
     {
         $authStr = '';
-        $path = $requestUri;
-        $pos = strpos($path, '?');
+        $pos = strpos($requestUri, '?');
         if ($pos === false) {
-            $authStr = urldecode($path)."\n".$requestBody;
+            $authStr .= urldecode($requestUri)."\n".$requestBody;
         } else {
-            $authStr = urldecode(substr($path, 0, $pos)).substr($path, $pos, strlen($path) - $pos)."\n".$requestBody;
+            $authStr .= urldecode(substr($requestUri, 0, $pos)).substr($requestUri, $pos, strlen($requestUri) - $pos)."\n".$requestBody;
         }
         return $authStr;
     }

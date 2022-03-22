@@ -6,22 +6,13 @@ class AppServer
 {
     /**
      * @param array $config
-     * @return array
-     */
-    public function token(array $config)
-    {
-        return $this->makeToken($config)->response();
-    }
-
-    /**
-     * @param array $config
      * @return Token
      */
     public function makeToken(array $config)
     {
         $accessKey = $this->makeAccessKey($config);
         $policy = $this->makePolicy($config);
-        $callback = $this->makeCallback($config);
+        $callback = $this->makeCallbackParam($config);
         return new Token($accessKey, $policy, $callback);
     }
 
@@ -52,16 +43,8 @@ class AppServer
      * @param array $config
      * @return CallbackParam
      */
-    public function makeCallback(array $config)
+    public function makeCallbackParam(array $config)
     {
         return (new CallbackParam())->setCallbackUrl($config['callback_url']);
-    }
-
-    /**
-     * @return bool
-     */
-    public function verify()
-    {
-        return (new Callback())->verify($_SERVER['HTTP_AUTHORIZATION'], $_SERVER['HTTP_X_OSS_PUB_KEY_URL'], $_SERVER['REQUEST_URI'], file_get_contents('php://input'));
     }
 }
