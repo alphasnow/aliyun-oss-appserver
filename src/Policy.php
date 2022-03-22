@@ -2,6 +2,9 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
+/**
+ * @link https://help.aliyun.com/document_detail/31988.htm#section-d5z-1ww-wdb
+ */
 class Policy
 {
     /**

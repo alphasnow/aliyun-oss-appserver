@@ -2,6 +2,9 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
+/**
+ * @link https://help.aliyun.com/document_detail/31927.html
+ */
 class Token
 {
     /**
