@@ -10,7 +10,7 @@ Ali cloud server signature direct transmission and set up the call back
 
 ## Installation
 ```bash
-composer require "alphasnow/aliyun-oss-appserver"
+composer require alphasnow/aliyun-oss-appserver
 ```
 
 ## Configuration
@@ -33,12 +33,14 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 
 ## Usage
 ### Laravel Project
+Request authorization
 ```php
 use AlphaSnow\OSS\AppServer\Token;
 
 $token = app(Token::class);
 return response()->json($token->reponse());
 ```
+Deal with the callback
 ```php
 use AlphaSnow\OSS\AppServer\LaravelCallback;
 
@@ -46,12 +48,14 @@ $status = app(LaravelCallback::class)->verifyByRequest();
 ```
 
 ### Other Project
+Request authorization
 ```php
-use AlphaSnow\OSS\AppServer\AppServer;
+use AlphaSnow\OSS\AppServer\Factory;
 
-$token = (new AppServer())->token($config);
+$token = (new Factory())->makeToken($config);
 echo json_encode($token->response());
 ```
+Deal with the callback
 ```php
 use AlphaSnow\OSS\AppServer\Callback;
 use AlphaSnow\OSS\AppServer\StrandCallback;

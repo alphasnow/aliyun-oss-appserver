@@ -2,7 +2,7 @@
 
 namespace AlphaSnow\OSS\AppServer\Tests;
 
-use AlphaSnow\OSS\AppServer\AppServer;
+use AlphaSnow\OSS\AppServer\Factory;
 use AlphaSnow\OSS\AppServer\Token;
 
 class TokenTest extends TestCase
@@ -24,7 +24,7 @@ class TokenTest extends TestCase
         /**
          * @var Token $token
          */
-        $token = (new AppServer())->makeToken(config("oss-appserver"));
+        $token = (new Factory())->makeToken(config("oss-appserver"));
         $token->policy()->setExpireAt(1647851236);
         $response = $token->response();
 

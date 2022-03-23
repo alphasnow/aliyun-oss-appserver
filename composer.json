@@ -1,14 +1,13 @@
 {
     "name": "alphasnow/aliyun-oss-appserver",
-    "description": "Aliyun oss signature direct transmission",
-    "keywords": [
-        "aliyun",
-        "oss",
-        "appserver",
-        "laravel"
-    ],
-    "homepage": "https://alphasnow.github.io/aliyun-oss-appserver/",
+    "description": "aliyun oss signature direct transmission",
+    "keywords": ["aliyun", "oss", "appserver", "laravel"],
     "license": "MIT",
+    "homepage": "https://alphasnow.github.io/aliyun-oss-appserver/",
+    "support": {
+        "issues": "https://github.com/alphasnow/aliyun-oss-appserver/issues",
+        "source": "https://github.com/alphasnow/aliyun-oss-appserver"
+    },
     "authors": [
         {
             "name": "alphasnow",
@@ -16,7 +15,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": "^7.2.5|^8.0",
         "ext-json": "*",
         "ext-curl": "*",
         "ext-openssl": "*"
@@ -41,7 +40,7 @@
     "extra": {
         "laravel": {
             "providers": [
-              "AlphaSnow\\OSS\\AppServer\\ServiceProvider"
+                "AlphaSnow\\OSS\\AppServer\\ServiceProvider"
             ]
         }
     },

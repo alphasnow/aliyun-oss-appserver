@@ -2,7 +2,7 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-class AppServer
+class Factory
 {
     /**
      * @param array $config

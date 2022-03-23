@@ -10,7 +10,7 @@
 
 ## 安装依赖
 ```bash
-composer require "alphasnow/aliyun-oss-appserver"
+composer require alphasnow/aliyun-oss-appserver
 ```
 
 ## 服务配置
@@ -33,12 +33,14 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 
 ## 快速使用
 ### Laravel项目
+获取授权
 ```php
 use AlphaSnow\OSS\AppServer\Token;
 
 $data = app(Token::class)->response();
 return response()->json($data);
 ```
+处理回调
 ```php
 use AlphaSnow\OSS\AppServer\LaravelCallback;
 
@@ -46,12 +48,14 @@ $status = app(LaravelCallback::class)->verifyByRequest();
 ```
 
 ### 其他框架项目
+获取授权
 ```php
-use AlphaSnow\OSS\AppServer\AppServer;
+use AlphaSnow\OSS\AppServer\Factory;
 
-$data = (new AppServer())->token($config)->response();
+$data = (new Factory())->makeToken($config)->response();
 echo json_encode($data);
 ```
+处理回调
 ```php
 use AlphaSnow\OSS\AppServer\Callback;
 use AlphaSnow\OSS\AppServer\StrandCallback;

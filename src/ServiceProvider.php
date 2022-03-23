@@ -14,7 +14,7 @@ class ServiceProvider extends BaseServiceProvider
         }
         $this->mergeConfigFrom($source, 'oss-appserver');
 
-        $appServer = new AppServer();
+        $appServer = new Factory();
         $this->app->bind(AccessKey::class, function ($app) use ($appServer) {
             $config = $app->make('config')->get('oss-appserver');
             return $appServer->makeAccessKey($config);

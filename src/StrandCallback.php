@@ -2,7 +2,7 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-class StrandCallback
+class StrandCallback implements SimpleCallbackInterface
 {
     /**
      * @var Callback

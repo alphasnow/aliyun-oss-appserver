@@ -4,20 +4,21 @@ namespace AlphaSnow\OSS\AppServer;
 
 use Illuminate\Http\Request;
 
-class LaravelCallback
+class LaravelCallback implements SimpleCallbackInterface
 {
-    /**
-     * @var Callback
-     */
-    protected $callback;
-
     /**
      * @var Request
      */
     protected $request;
 
     /**
+     * @var Callback
+     */
+    protected $callback;
+
+    /**
      * @param Callback $callback
+     * @param Request $request
      */
     public function __construct(Callback $callback, Request $request)
     {
@@ -36,5 +37,21 @@ class LaravelCallback
             $this->request->server(Callback::KEY_URI),
             $this->request->getContent()
         );
+    }
+
+    /**
+     * @return Callback
+     */
+    public function getCallback()
+    {
+        return $this->callback;
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 }

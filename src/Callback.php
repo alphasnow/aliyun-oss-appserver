@@ -9,6 +9,11 @@ class Callback
     const KEY_URI = "REQUEST_URI";
 
     /**
+     * @var string
+     */
+    protected $publicKey;
+
+    /**
      * @param string $authorizationBase64 $_SERVER['HTTP_AUTHORIZATION']
      * @param string $pubKeyUrlBase64 $_SERVER['HTTP_X_OSS_PUB_KEY_URL']
      * @param string $requestUri $_SERVER['REQUEST_URI']
@@ -18,34 +23,59 @@ class Callback
     public function verify($authorizationBase64, $pubKeyUrlBase64, $requestUri, $requestBody)
     {
         $authorization = base64_decode($authorizationBase64);
-        $pubKeyUrl = base64_decode($pubKeyUrlBase64);
-        if (!$authorization || !$pubKeyUrl) {
+        if (!$authorization) {
             return false;
         }
 
-        // cache key ?
+        $pubKeyUrl = base64_decode($pubKeyUrlBase64);
+        if (!$pubKeyUrl) {
+            return false;
+        }
         $pubKey = $this->getPublicKey($pubKeyUrl);
         if (!$pubKey) {
             return false;
         }
 
         $authStr = $this->buildAuthStr($requestUri, $requestBody);
+
         $ok = openssl_verify($authStr, $authorization, $pubKey, OPENSSL_ALGO_MD5);
         return $ok == 1;
     }
 
     /**
      * @param string $pubKeyUrl
-     * @return bool|string
+     * @return string
      */
-    protected function getPublicKey($pubKeyUrl)
+    public function getPublicKey($pubKeyUrl)
+    {
+        if (!$this->publicKey) {
+            $this->publicKey = $this->downloadPublicKey($pubKeyUrl);
+        }
+        return $this->publicKey;
+    }
+
+    /**
+     * @param string $pubKey
+     * @return Callback
+     */
+    public function setPublicKey($pubKey)
+    {
+        $this->publicKey = $pubKey;
+        return $this;
+    }
+
+    /**
+     * @param string $pubKeyUrl
+     * @return string
+     */
+    protected function downloadPublicKey($pubKeyUrl)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $pubKeyUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
         $pubKey = curl_exec($ch);
-        return $pubKey;
+        return $pubKey ?: "";
     }
 
     /**
