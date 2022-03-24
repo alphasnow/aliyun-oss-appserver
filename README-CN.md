@@ -39,12 +39,14 @@ use AlphaSnow\OSS\AppServer\Token;
 
 $data = app(Token::class)->response();
 return response()->json($data);
+// {"accessid":"access_key_id","host":"https://bucket.endpoint.com","policy":"eyJleHBpcmF0aW9uIjoiMjAyMi0wMy0yMVQwODoyNzoxNi4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ1cGxvYWRcLyJdXX0=","signature":"P2qcKX8/CKiCzEiDh6CE02HoTRk=","expire":1647851236,"callback":"eyJjYWxsYmFja1VybCI6Imh0dHA6XC9cL2RvbWFpbi5jb21cL2NhbGxiYWNrIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JHtvYmplY3R9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZoZWlnaHQ9JHtpbWFnZUluZm8uaGVpZ2h0fSZ3aWR0aD0ke2ltYWdlSW5mby53aWR0aH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb25cL3gtd3d3LWZvcm0tdXJsZW5jb2RlZCJ9","dir":"upload/"}
 ```
 处理回调
 ```php
 use AlphaSnow\OSS\AppServer\LaravelCallback;
 
 $status = app(LaravelCallback::class)->verifyByRequest();
+// true or false
 ```
 
 ### 其他框架项目
@@ -54,6 +56,7 @@ use AlphaSnow\OSS\AppServer\Factory;
 
 $data = (new Factory())->makeToken($config)->response();
 echo json_encode($data);
+// {"accessid":"access_key_id","host":"https://bucket.endpoint.com","policy":"eyJleHBpcmF0aW9uIjoiMjAyMi0wMy0yMVQwODoyNzoxNi4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ1cGxvYWRcLyJdXX0=","signature":"P2qcKX8/CKiCzEiDh6CE02HoTRk=","expire":1647851236,"callback":"eyJjYWxsYmFja1VybCI6Imh0dHA6XC9cL2RvbWFpbi5jb21cL2NhbGxiYWNrIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JHtvYmplY3R9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZoZWlnaHQ9JHtpbWFnZUluZm8uaGVpZ2h0fSZ3aWR0aD0ke2ltYWdlSW5mby53aWR0aH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb25cL3gtd3d3LWZvcm0tdXJsZW5jb2RlZCJ9","dir":"upload/"}
 ```
 处理回调
 ```php
@@ -61,6 +64,7 @@ use AlphaSnow\OSS\AppServer\Callback;
 use AlphaSnow\OSS\AppServer\StrandCallback;
 
 $status = (new StrandCallback(new Callback))->verifyByRequest();
+// true or false
 ```
 
 ### 动态配置
