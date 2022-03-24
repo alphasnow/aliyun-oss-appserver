@@ -12,7 +12,9 @@ class ServiceProvider extends BaseServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([$source => \config_path('oss-appserver.php')], 'oss-appserver');
         }
-        $this->mergeConfigFrom($source, 'oss-appserver');
+        if ($source) {
+            $this->mergeConfigFrom($source, 'oss-appserver');
+        }
 
         $appServer = new Factory();
         $this->app->bind(AccessKey::class, function ($app) use ($appServer) {

@@ -80,7 +80,10 @@ class Token
      */
     protected function encodePolicy($policy)
     {
-        return base64_encode(json_encode($policy));
+        if ($json = json_encode($policy)) {
+            return base64_encode($json);
+        }
+        return "";
     }
 
     /**
@@ -99,6 +102,9 @@ class Token
      */
     protected function encodeCallback($callback)
     {
-        return base64_encode(json_encode($callback));
+        if ($json = json_encode($callback)) {
+            return base64_encode($json);
+        }
+        return "";
     }
 }

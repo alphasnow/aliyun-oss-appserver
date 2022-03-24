@@ -75,7 +75,7 @@ class Callback
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
         $pubKey = curl_exec($ch);
-        return $pubKey ?: "";
+        return (string)$pubKey;
     }
 
     /**

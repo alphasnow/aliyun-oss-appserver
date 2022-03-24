@@ -34,7 +34,8 @@ class LaravelCacheCallback implements SimpleCallbackInterface
      */
     public function verifyByRequest()
     {
-        $cacheKey = self::KEY_PUBLIC.":".$this->laravelCallback->getRequest()->server(Callback::KEY_PUB);
+        $pubKey = $this->laravelCallback->getRequest()->server(Callback::KEY_PUB);
+        $cacheKey = self::KEY_PUBLIC.":".$pubKey;
         $publicKey = $this->cache->store()->get($cacheKey);
         if (!$publicKey) {
             $publicKey = $this->laravelCallback->getCallback()->getPublicKey(Callback::KEY_PUB);

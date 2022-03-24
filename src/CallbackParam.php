@@ -8,10 +8,12 @@ class CallbackParam
      * @var string
      */
     protected $callbackUrl;
+
     /**
      * @var string
      */
     protected $callbackBody = 'filename=${object}&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}';
+
     /**
      * @var string
      */
@@ -26,7 +28,7 @@ class CallbackParam
     }
 
     /**
-     * @param mixed $callbackUrl
+     * @param string $callbackUrl
      * @return CallbackParam
      */
     public function setCallbackUrl($callbackUrl)
