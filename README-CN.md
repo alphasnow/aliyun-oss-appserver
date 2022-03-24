@@ -1,7 +1,7 @@
 [English](README.md) | 简体中文  
 
 # AliYun OSS AppServer
-阿里云服务端签名直传并设置上传回调
+Web端直接上传数据至OSS, 服务端签名直传并设置上传回调.
 
 [![Latest Stable Version](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/v/stable)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
 [![Total Downloads](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/downloads)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
@@ -15,15 +15,15 @@ composer require alphasnow/aliyun-oss-appserver
 
 ## 服务配置
 修改环境配置 `.env`
-```
-OSS_ACCESS_KEY_ID=<必填, 阿里云的AccessKeyId>
-OSS_ACCESS_KEY_SECRET=<必填, 阿里云的AccessKeySecret>
-OSS_BUCKET=<必填, 对象存储的Bucket>
-OSS_ENDPOINT=<必填, 对象存储的Endpoint>
-OSS_CALLBACK_URL=<必填, 默认回调地址>
-OSS_POLICY_MAX_SIZE=<选填, 默认最大文件大小1G>
-OSS_POLICY_EXPIRE_TIME=<选填, 默认过期时间60秒>
-OSS_POLICY_USER_DIR=<选填, 默认上传目录upload/>
+```env
+OSS_ACCESS_KEY_ID=<必填, 阿里云的AccessKeyId, 示例: LT************Hz>
+OSS_ACCESS_KEY_SECRET=<必填, 阿里云的AccessKeySecret, 示例: Q5**************************PD>
+OSS_BUCKET=<必填, 对象存储的Bucket, 示例: my-files>
+OSS_ENDPOINT=<必填, 对象存储的Endpoint, 示例: oss-cn-hangzhou.aliyuncs.com>
+OSS_CALLBACK_URL=<必填, 默认回调地址, 示例: https://my-domain.com/callback>
+OSS_POLICY_MAX_SIZE=<选填, 默认最大文件大小1G, 示例: 5242880>
+OSS_POLICY_EXPIRE_TIME=<选填, 默认过期时间60秒, 示例: 15>
+OSS_POLICY_USER_DIR=<选填, 默认上传目录upload/, 示例: attachments/>
 ```
 
 (可选) 修改配置文件 `config/oss-appserver.php`

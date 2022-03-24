@@ -1,7 +1,8 @@
 English | [简体中文](README-CN.md)  
 
 # AliYun OSS AppServer
-Ali cloud server signature direct transmission and set up the call back
+Upload data to OSS through Web applications.
+Add signatures on the server, configure upload callback, and directly transfer data.
 
 [![Latest Stable Version](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/v/stable)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
 [![Total Downloads](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/downloads)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
@@ -15,15 +16,15 @@ composer require alphasnow/aliyun-oss-appserver
 
 ## Configuration
 Modify the environment file `.env`
-```
-OSS_ACCESS_KEY_ID=<Your aliyun accessKeyId, Required>
-OSS_ACCESS_KEY_SECRET=<Your aliyun accessKeySecret, Required>
-OSS_BUCKET=<Your oss bucket name, Required>
-OSS_ENDPOINT=<Your oss endpoint domain, Required>
-OSS_CALLBACK_URL=<Default callback address, Required>
-OSS_POLICY_MAX_SIZE=<Default maximum file size 1 GB, Optional>
-OSS_POLICY_EXPIRE_TIME=<Default expiration time 60s, Optional>
-OSS_POLICY_USER_DIR=<Default Upload Directory upload/, Optional>
+```env
+OSS_ACCESS_KEY_ID=<Your aliyun accessKeyId, Required, Example: LT************Hz>
+OSS_ACCESS_KEY_SECRET=<Your aliyun accessKeySecret, Required, Example: Q5**************************PD>
+OSS_BUCKET=<Your oss bucket name, Required, Example: my-files>
+OSS_ENDPOINT=<Your oss endpoint domain, Required, Example: oss-cn-hangzhou.aliyuncs.com>
+OSS_CALLBACK_URL=<Default callback address, Required, Example: https://my-domain.com/callback>
+OSS_POLICY_MAX_SIZE=<Default maximum file size 1 GB, Optional, Example: 5242880>
+OSS_POLICY_EXPIRE_TIME=<Default expiration time 60s, Optional, Example: 15>
+OSS_POLICY_USER_DIR=<Default Upload Directory upload/, Optional, Example: attachments/>
 ```
 
 (Optional) Modify the config file `config/oss-appserver.php`
@@ -75,5 +76,5 @@ $token->policy()->setUserDir("users/")->setExpireTime(60)->setMaxSize(500*1024*1
 $token->callback()->setCallbackUrl("http://domain.com/notify");
 ```
 
-## AliYun document
-> https://help.aliyun.com/document_detail/31927.html
+## Ali document
+> https://www.alibabacloud.com/help/en/doc-detail/112718.htm

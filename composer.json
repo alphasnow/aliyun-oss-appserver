@@ -1,6 +1,6 @@
 {
     "name": "alphasnow/aliyun-oss-appserver",
-    "description": "aliyun oss signature direct transmission",
+    "description": "upload data to OSS through web applications",
     "keywords": ["aliyun", "oss", "appserver", "laravel"],
     "license": "MIT",
     "homepage": "https://alphasnow.github.io/aliyun-oss-appserver/",
