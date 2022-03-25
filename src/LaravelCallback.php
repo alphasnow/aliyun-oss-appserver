@@ -4,7 +4,7 @@ namespace AlphaSnow\OSS\AppServer;
 
 use Illuminate\Http\Request;
 
-class LaravelCallback implements SimpleCallbackInterface
+class LaravelCallback implements SimpleCallback
 {
     /**
      * @var Request

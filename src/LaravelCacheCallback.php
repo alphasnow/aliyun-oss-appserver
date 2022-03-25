@@ -5,7 +5,7 @@ namespace AlphaSnow\OSS\AppServer;
 use Carbon\Carbon;
 use Illuminate\Contracts\Cache\Factory as Cache;
 
-class LaravelCacheCallback implements SimpleCallbackInterface
+class LaravelCacheCallback implements SimpleCallback
 {
     const KEY_PUBLIC = "oss-appserver:public-key";
 

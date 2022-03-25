@@ -22,10 +22,7 @@ class Factory
      */
     public function makeAccessKey(array $config)
     {
-        return (new AccessKey())->setAccessKeyId($config['access_key_id'])
-            ->setAccessKeySecret($config['access_key_secret'])
-            ->setOssBucket($config['bucket'])
-            ->setOssEndpoint($config['endpoint']);
+        return new AccessKey($config['access_key_id'], $config['access_key_secret'], $config['bucket'], $config['endpoint'], $config['host'] ?? null);
     }
 
     /**
@@ -34,9 +31,17 @@ class Factory
      */
     public function makePolicy(array $config)
     {
-        return (new Policy())->setExpireTime($config['expire_time'])
-            ->setMaxSize($config['max_size'])
-            ->setUserDir($config['user_dir']);
+        $policy = new Policy();
+        if (isset($config['expire_time'])) {
+            $policy->setExpireTime($config['expire_time']);
+        }
+        if (isset($config['max_size'])) {
+            $policy->setMaxSize($config['max_size']);
+        }
+        if (isset($config['user_dir'])) {
+            $policy->setUserDir($config['user_dir']);
+        }
+        return $policy;
     }
 
     /**
@@ -45,6 +50,6 @@ class Factory
      */
     public function makeCallbackParam(array $config)
     {
-        return (new CallbackParam())->setCallbackUrl($config['callback_url']);
+        return new CallbackParam($config['callback_url'], $config['callback_body'] ?? null, $config['callback_body_type'] ?? null);
     }
 }

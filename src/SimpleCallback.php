@@ -2,7 +2,7 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-interface SimpleCallbackInterface
+interface SimpleCallback
 {
     /**
      * @return bool

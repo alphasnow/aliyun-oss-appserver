@@ -2,7 +2,7 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-class CallbackParam
+class CallbackParam implements ArrayEntity
 {
     /**
      * @var string
@@ -18,6 +18,22 @@ class CallbackParam
      * @var string
      */
     protected $callbackBodyType = 'application/x-www-form-urlencoded';
+
+    /**
+     * @param string $callbackUrl
+     * @param string $callbackBody
+     * @param string $callbackBodyType
+     */
+    public function __construct($callbackUrl, $callbackBody = null, $callbackBodyType = null)
+    {
+        $this->callbackUrl = $callbackUrl;
+        if (!is_null($callbackBody)) {
+            $this->callbackBody = $callbackBody;
+        }
+        if (!is_null($callbackBodyType)) {
+            $this->callbackBodyType = $callbackBodyType;
+        }
+    }
 
     /**
      * @return mixed
@@ -76,7 +92,7 @@ class CallbackParam
     /**
      * @return array
      */
-    public function getCallbackParam()
+    public function toArray()
     {
         return [
             'callbackUrl' => $this->callbackUrl,

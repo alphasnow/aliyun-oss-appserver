@@ -2,7 +2,7 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-class AccessKey
+class AccessKey implements ArrayEntity
 {
     /**
      * @var string
@@ -28,6 +28,22 @@ class AccessKey
      * @var string
      */
     protected $ossHost;
+
+    /**
+     * @param string $accessKeyId
+     * @param string $accessKeySecret
+     * @param string $ossBucket
+     * @param string $ossEndpoint
+     * @param string $ossHost
+     */
+    public function __construct($accessKeyId, $accessKeySecret, $ossBucket, $ossEndpoint, $ossHost = null)
+    {
+        $this->accessKeyId = $accessKeyId;
+        $this->accessKeySecret = $accessKeySecret;
+        $this->ossBucket = $ossBucket;
+        $this->ossEndpoint = $ossEndpoint;
+        $this->ossHost = $ossHost;
+    }
 
     /**
      * @return string
@@ -123,5 +139,16 @@ class AccessKey
     {
         $this->ossHost = $ossHost;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'accessid' => $this->accessKeyId,
+            'host' => $this->getOssHost(),
+        ];
     }
 }

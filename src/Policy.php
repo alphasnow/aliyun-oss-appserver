@@ -5,7 +5,7 @@ namespace AlphaSnow\OSS\AppServer;
 /**
  * @link https://help.aliyun.com/document_detail/31988.htm#section-d5z-1ww-wdb
  */
-class Policy
+class Policy implements ArrayEntity
 {
     /**
      * @var array
@@ -16,18 +16,35 @@ class Policy
      * @var string
      */
     protected $userDir;
+
     /**
      * @var int
      */
     protected $expireTime;
+
     /**
      * @var int
      */
     protected $expireAt;
+
     /**
      * @var int
      */
     protected $maxSize;
+
+    /**
+     * @param array $conditions
+     * @param string $expiration
+     */
+    public function __construct($conditions = [], $expiration = null)
+    {
+        if (!empty($conditions)) {
+            $this->policy['conditions'] = $conditions;
+        }
+        if (!is_null($expiration)) {
+            $this->policy['expiration'] = $expiration;
+        }
+    }
 
     /**
      * @param array $policy
@@ -123,7 +140,7 @@ class Policy
     /**
      * @return array
      */
-    public function getPolicy()
+    public function toArray()
     {
         if (!$this->expireAt && $this->expireTime) {
             $this->expireAt = time() + $this->expireTime;
