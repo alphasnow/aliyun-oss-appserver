@@ -40,15 +40,19 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 use AlphaSnow\OSS\AppServer\Token;
 
 $token = app(Token::class);
+// 动态配置 ...
 return response()->json($token->reponse());
-// {"accessid":"access_key_id","host":"https://bucket.endpoint.com","policy":"eyJleHBpcmF0aW9uIjoiMjAyMi0wMy0yMVQwODoyNzoxNi4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ1cGxvYWRcLyJdXX0=","signature":"P2qcKX8/CKiCzEiDh6CE02HoTRk=","expire":1647851236,"callback":"eyJjYWxsYmFja1VybCI6Imh0dHA6XC9cL2RvbWFpbi5jb21cL2NhbGxiYWNrIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JHtvYmplY3R9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZoZWlnaHQ9JHtpbWFnZUluZm8uaGVpZ2h0fSZ3aWR0aD0ke2ltYWdlSW5mby53aWR0aH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb25cL3gtd3d3LWZvcm0tdXJsZW5jb2RlZCJ9","dir":"upload/"}
 ```
 处理回调
 ```php
 use AlphaSnow\OSS\AppServer\LaravelCallback;
 
 $status = app(LaravelCallback::class)->verifyByRequest();
-// true or false
+if ($status) {
+    return response()->json(["status" => true]);
+} else {
+    return response("", 403);
+}
 ```
 
 ### 其他框架项目
@@ -57,8 +61,9 @@ $status = app(LaravelCallback::class)->verifyByRequest();
 use AlphaSnow\OSS\AppServer\Factory;
 
 $token = (new Factory)->makeToken($config);
+// 动态配置 ...
+header("Content-Type: application/json; charset=utf-8");
 echo json_encode($token->response());
-// {"accessid":"access_key_id","host":"https://bucket.endpoint.com","policy":"eyJleHBpcmF0aW9uIjoiMjAyMi0wMy0yMVQwODoyNzoxNi4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ1cGxvYWRcLyJdXX0=","signature":"P2qcKX8/CKiCzEiDh6CE02HoTRk=","expire":1647851236,"callback":"eyJjYWxsYmFja1VybCI6Imh0dHA6XC9cL2RvbWFpbi5jb21cL2NhbGxiYWNrIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JHtvYmplY3R9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZoZWlnaHQ9JHtpbWFnZUluZm8uaGVpZ2h0fSZ3aWR0aD0ke2ltYWdlSW5mby53aWR0aH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb25cL3gtd3d3LWZvcm0tdXJsZW5jb2RlZCJ9","dir":"upload/"}
 ```
 处理回调
 ```php
@@ -66,19 +71,37 @@ use AlphaSnow\OSS\AppServer\Callback;
 use AlphaSnow\OSS\AppServer\StrandCallback;
 
 $status = (new StrandCallback(new Callback))->verifyByRequest();
-// true or false
+if ($status) {
+    header("Content-Type: application/json; charset=utf-8");
+    echo json_encode(["status" => true]);
+} else {
+    header("HTTP/1.1 403 Forbidden");
+}
 ```
 
 ### 动态配置
 ```php
 // 修改直传服务器地址
-$token->access()->setOssHost("https://wx-static.oss-cn-hangzhou.aliyuncs.com");
+$token->access()->setOssHost("https://bucket.endpoint.com");
 
 // 修改上传目录/超时时间60秒/最大文件限制500M
-$token->policy()->setUserDir("users/")->setExpireTime(60)->setMaxSize(500*1024*1024);
+$token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
 
 // 修改回调地址
-$token->callback()->setCallbackUrl("http://domain.com/notify");
+$token->callback()->setCallbackUrl("http://domain.com/callback");
+```
+
+### 授权示例
+```json
+{
+    "accessid": "access_key_id",
+    "host": "https://bucket.endpoint.com",
+    "policy": "eyJleHBpcmF0aW9uIjoiMjAyMi0wMy0yMVQwODoyNzoxNi4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ1cGxvYWRcLyJdXX0=",
+    "signature": "P2qcKX8/CKiCzEiDh6CE02HoTRk=",
+    "expire": 1647851236,
+    "callback": "eyJjYWxsYmFja1VybCI6Imh0dHA6XC9cL2RvbWFpbi5jb21cL2NhbGxiYWNrIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JHtvYmplY3R9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZoZWlnaHQ9JHtpbWFnZUluZm8uaGVpZ2h0fSZ3aWR0aD0ke2ltYWdlSW5mby53aWR0aH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb25cL3gtd3d3LWZvcm0tdXJsZW5jb2RlZCJ9",
+    "dir": "upload/"
+}
 ```
 
 ## 阿里云文档
