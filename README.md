@@ -49,11 +49,11 @@ Deal with the callback
 use AlphaSnow\OSS\AppServer\LaravelCallback;
 
 $status = app(LaravelCallback::class)->verifyByRequest();
-if ($status) {
-    return response()->json(["status" => true]);
-} else {
+if ($status == false) {
     return response("", 403);
 }
+$filename = request()->post("filename");
+return response()->json(["status" => "ok", "filename" => $filename]);
 ```
 
 ### Other Project
@@ -72,12 +72,13 @@ use AlphaSnow\OSS\AppServer\Callback;
 use AlphaSnow\OSS\AppServer\StrandCallback;
 
 $status = (new StrandCallback(new Callback))->verifyByRequest();
-if ($status) {
-    header("Content-Type: application/json; charset=utf-8");
-    echo json_encode(["status" => true]);
-} else {
+if ($status == false) {
     header("HTTP/1.1 403 Forbidden");
+    exit;
 }
+$filename = $_POST["filename"] ?? "";
+header("Content-Type: application/json; charset=utf-8");
+echo json_encode(["status" => "ok", "filename" => $filename]);
 ```
 
 ### Dynamic configuration
@@ -86,10 +87,14 @@ if ($status) {
 $token->access()->setOssHost("https://bucket.endpoint.com");
 
 // Change the upload directory/timeout period to 60 seconds/maximum file limit to 500 MB
-$token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
+$token->policy()->setUserDir("upload/")
+    ->setExpireTime(60)
+    ->setMaxSize(500*1024*1024);
 
-// Change the callback address
-$token->callback()->setCallbackUrl("http://domain.com/callback");
+// Change the callback address/callback body
+$token->callback()->setCallbackUrl("http://domain.com/callback")
+    ->setCallbackBody('filename=${object}&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}')
+    ->setCallbackBodyType("application/x-www-form-urlencoded");
 ```
 
 ### Token json

@@ -48,11 +48,11 @@ return response()->json($token->reponse());
 use AlphaSnow\OSS\AppServer\LaravelCallback;
 
 $status = app(LaravelCallback::class)->verifyByRequest();
-if ($status) {
-    return response()->json(["status" => true]);
-} else {
+if ($status == false) {
     return response("", 403);
 }
+$filename = request()->post("filename");
+return response()->json(["status" => "ok", "filename" => $filename]);
 ```
 
 ### 其他框架项目
@@ -71,12 +71,13 @@ use AlphaSnow\OSS\AppServer\Callback;
 use AlphaSnow\OSS\AppServer\StrandCallback;
 
 $status = (new StrandCallback(new Callback))->verifyByRequest();
-if ($status) {
-    header("Content-Type: application/json; charset=utf-8");
-    echo json_encode(["status" => true]);
-} else {
+if ($status == false) {
     header("HTTP/1.1 403 Forbidden");
+    exit;
 }
+$filename = $_POST["filename"] ?? "";
+header("Content-Type: application/json; charset=utf-8");
+echo json_encode(["status" => "ok", "filename" => $filename]);
 ```
 
 ### 动态配置
@@ -87,8 +88,10 @@ $token->access()->setOssHost("https://bucket.endpoint.com");
 // 修改上传目录/超时时间60秒/最大文件限制500M
 $token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
 
-// 修改回调地址
-$token->callback()->setCallbackUrl("http://domain.com/callback");
+// 修改回调地址/回调数据
+$token->callback()->setCallbackUrl("http://domain.com/callback")
+    ->setCallbackBody('filename=${object}&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}')
+    ->setCallbackBodyType("application/x-www-form-urlencoded");
 ```
 
 ### 授权示例
