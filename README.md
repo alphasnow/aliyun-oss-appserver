@@ -111,4 +111,4 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
 ```
 
 ## Ali document
-> https://www.alibabacloud.com/help/en/doc-detail/112718.htm
+> https://www.alibabacloud.com/help/en/object-storage-service/latest/obtain-signature-information-from-the-server-and-upload-data-to-oss
