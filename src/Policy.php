@@ -149,7 +149,7 @@ class Policy implements ArrayEntity
             $this->policy['expiration'] = $this->gmtIso8601($this->expireAt);
         }
         if ($this->maxSize) {
-            $this->policy['conditions'][] = ['content-length-range', 0, $this->maxSize];
+            $this->policy['conditions'][] = ['content-length-range', 0, intval($this->maxSize)];
         }
         if ($this->userDir) {
             $this->policy['conditions'][] = ['starts-with', '$key', $this->userDir];
