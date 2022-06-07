@@ -23,10 +23,10 @@ OSS_ACCESS_KEY_ID=<Your aliyun accessKeyId, Required, Example: LT************Hz>
 OSS_ACCESS_KEY_SECRET=<Your aliyun accessKeySecret, Required, Example: Q5**************************PD>
 OSS_BUCKET=<Your oss bucket name, Required, Example: my-files>
 OSS_ENDPOINT=<Your oss endpoint domain, Required, Example: oss-cn-hangzhou.aliyuncs.com>
-OSS_CALLBACK_URL=<Default callback address, Required, Example: https://my-domain.com/callback>
-OSS_POLICY_MAX_SIZE=<Default maximum file size 1 GB, Optional, Example: 5242880>
-OSS_POLICY_EXPIRE_TIME=<Default expiration time 60s, Optional, Example: 15>
-OSS_POLICY_USER_DIR=<Default Upload Directory upload/, Optional, Example: attachments/>
+OSS_CALLBACK_URL=<Default callback address, Optional, Example: https://my-domain.com/callback>
+OSS_POLICY_MAX_SIZE=<Default maximum file size 1000MB, Optional, Example: 1048576000>
+OSS_POLICY_EXPIRE_TIME=<Default expiration time 3600s, Optional, Example: 3600>
+OSS_POLICY_USER_DIR=<Default Upload Directory upload/, Optional, Example: upload/>
 ```
 
 (Optional) Modify the config file `config/oss-appserver.php`
@@ -35,69 +35,65 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 ```
 
 ## Usage
-### Laravel Project
-Request authorization
+### Laravel server
+Add route `routes/api.php`
 ```php
+Route::get("app-server/token","AppSeverController@token");
+Route::post("app-server/callback","AppSeverController@callback")->name("app-server.callback");
+```
+Add controller `app/Http/controllers/AppSeverController.php`
+```php
+namespace App\Http\Controllers;
+
 use AlphaSnow\OSS\AppServer\Token;
+use AlphaSnow\OSS\AppServer\LaravelCacheCallback;
 
-$token = app(Token::class);
-// Dynamic configuration ...
-return response()->json($token->reponse());
-```
-Deal with the callback
-```php
-use AlphaSnow\OSS\AppServer\LaravelCallback;
+class AppSeverController
+{
+    public function token(){
+        $token = app(Token::class);
+        // Dynamic configuration based on requirements
+        // $token->callback()->setCallbackUrl(route("app-server.callback"));
+        return response()->json($token->response());
+    }
 
-$status = app(LaravelCallback::class)->verifyByRequest();
-if ($status == false) {
-    return response("", 403);
+    public function callback(){
+        $status = app(LaravelCacheCallback::class)->verifyByRequest();
+        if ($status == false) {
+            return response()->json(["status" => "fail"],403);
+        }
+        // Default callback parameters: filename, size, mimeType, height, width
+        // $filename = request()->post("filename");
+        return response()->json(["status" => "ok"]);
+    }
 }
-$filename = request()->post("filename");
-return response()->json(["status" => "ok", "filename" => $filename]);
 ```
 
-### Other Project
-Request authorization
-```php
-use AlphaSnow\OSS\AppServer\Factory;
-
-$token = (new Factory)->makeToken($config);
-// Dynamic configuration ...
-header("Content-Type: application/json; charset=utf-8");
-echo json_encode($token->response());
-```
-Deal with the callback
-```php
-use AlphaSnow\OSS\AppServer\Callback;
-use AlphaSnow\OSS\AppServer\StrandCallback;
-
-$status = (new StrandCallback(new Callback))->verifyByRequest();
-if ($status == false) {
-    header("HTTP/1.1 403 Forbidden");
-    exit;
-}
-$filename = $_POST["filename"] ?? "";
-header("Content-Type: application/json; charset=utf-8");
-echo json_encode(["status" => "ok", "filename" => $filename]);
-```
-
-### Dynamic configuration
+#### Dynamic configuration
 ```php
 // Change the address of the direct transmission server
 $token->access()->setOssHost("https://bucket.endpoint.com");
 
 // Change the upload directory/timeout period to 60 seconds/maximum file limit to 500 MB
-$token->policy()->setUserDir("upload/")
-    ->setExpireTime(60)
-    ->setMaxSize(500*1024*1024);
+$token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
 
-// Change the callback address/callback body
+// Change the callback address/callback body/callback header
 $token->callback()->setCallbackUrl("http://domain.com/callback")
-    ->setCallbackBody('filename=${object}&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}')
+    ->setCallbackBody("filename=\${object}&size=\${size}&mimeType=\${mimeType}&height=\${imageInfo.height}&width=\${imageInfo.width}")
     ->setCallbackBodyType("application/x-www-form-urlencoded");
 ```
 
-### Token json
+### Web client
+1. Download [https://help.aliyun.com/document_detail/31927.html#section-kx3-tsk-gfb](https://help.aliyun.com/document_detail/31927.html#section-kx3-tsk-gfb)
+2. Find line 30 of `upload.js` and change it to the actual server address
+    ```js
+    // serverUrl = 'http://88.88.88.88:8888'
+    serverUrl = 'http://laravel.local/api/app-server/token'
+    ```
+3. Set the bucket of the OSS object storage to Cors(Check Post)
+
+## Example data
+### Token response 
 ```json
 {
     "accessid": "access_key_id",
@@ -109,6 +105,21 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
     "dir": "upload/"
 }
 ```
+
+### Callback request
+```json
+{
+    "filename": "upload/894a60bb3ce807d5f39f9b11bfb94f3d.png",
+    "size": "256270",
+    "mimeType": "image/png",
+    "height": "529",
+    "width": "353"
+}
+```
+
+## Example of single-file services with clients
+[https://github.com/alphasnow/aliyun-oss-appserver/tree/main/examples](https://github.com/alphasnow/aliyun-oss-appserver/tree/main/examples)
+
 
 ## Ali document
 > https://www.alibabacloud.com/help/en/object-storage-service/latest/obtain-signature-information-from-the-server-and-upload-data-to-oss

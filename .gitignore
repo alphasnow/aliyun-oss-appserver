@@ -7,3 +7,5 @@
 /.env
 /.php-cs-fixer.cache
 /reports
+/examples/vendor
+/examples/composer.lock

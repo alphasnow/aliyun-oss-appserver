@@ -14,3 +14,4 @@ phpunit.xml export-ignore
 phpstan.neon export-ignore
 _config.yml export-ignore
 CHANGELOG.md export-ignore
+/examples export-ignore

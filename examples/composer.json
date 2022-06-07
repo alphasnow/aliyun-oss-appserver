@@ -1,0 +1,12 @@
+{
+    "name": "aliyun-oss-appserver/examples",
+    "authors": [
+        {
+            "name": "alphasnow",
+            "email": "wind91@foxmail.com"
+        }
+    ],
+    "require": {
+        "alphasnow/aliyun-oss-appserver": "^0.3.1"
+    }
+}
