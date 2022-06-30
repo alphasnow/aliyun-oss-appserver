@@ -8,4 +8,4 @@ cd /data/wwwroot/appserver
 composer install
 ```
 
-Open [http://localhost/appserver/index.html](http://localhost/index.html)
+Open [http://localhost/appserver/index.html](http://localhost/appserver/index.html)
