@@ -5,7 +5,7 @@ git clone git@github.com:alphasnow/aliyun-oss-appserver.git
 cd aliyun-oss-appserver
 vi examples/token.php
 # modify $config
-mv examples/ /data/wwwroot/appserver/
+cp -R examples/ /data/wwwroot/appserver/
 cd /data/wwwroot/appserver
 composer install
 ```
