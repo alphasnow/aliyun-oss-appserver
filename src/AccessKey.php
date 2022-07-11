@@ -60,6 +60,7 @@ class AccessKey implements ArrayEntity
     public function setAccessKeyId($accessKeyId)
     {
         $this->accessKeyId = $accessKeyId;
+
         return $this;
     }
 
@@ -78,6 +79,7 @@ class AccessKey implements ArrayEntity
     public function setAccessKeySecret($accessKeySecret)
     {
         $this->accessKeySecret = $accessKeySecret;
+
         return $this;
     }
 
@@ -96,6 +98,7 @@ class AccessKey implements ArrayEntity
     public function setOssBucket($ossBucket)
     {
         $this->ossBucket = $ossBucket;
+
         return $this;
     }
 
@@ -114,6 +117,7 @@ class AccessKey implements ArrayEntity
     public function setOssEndpoint($ossEndpoint)
     {
         $this->ossEndpoint = $ossEndpoint;
+
         return $this;
     }
 
@@ -138,6 +142,7 @@ class AccessKey implements ArrayEntity
     public function setOssHost(string $ossHost)
     {
         $this->ossHost = $ossHost;
+
         return $this;
     }
 
@@ -147,8 +152,8 @@ class AccessKey implements ArrayEntity
     public function toArray()
     {
         return [
-            'accessid' => $this->accessKeyId,
-            'host' => $this->getOssHost(),
+            "accessid" => $this->accessKeyId,
+            "host" => $this->getOssHost(),
         ];
     }
 }

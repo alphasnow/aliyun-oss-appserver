@@ -64,13 +64,13 @@ class Token
     public function response()
     {
         $response = [];
-        $response['accessid'] = $this->access->getAccessKeyId();
-        $response['host'] = $this->access->getOssHost();
-        $response['policy'] = $this->encodePolicy($this->policy->toArray());
-        $response['signature'] = $this->generateSignature($response['policy'], $this->access->getAccessKeySecret());
-        $response['expire'] = $this->policy->getExpireAt();
-        $response['callback'] = $this->encodeCallback($this->callback->toArray());
-        $response['dir'] = $this->policy->getUserDir();
+        $response["accessid"] = $this->access->getAccessKeyId();
+        $response["host"] = $this->access->getOssHost();
+        $response["policy"] = $this->encodePolicy($this->policy->toArray());
+        $response["signature"] = $this->generateSignature($response["policy"], $this->access->getAccessKeySecret());
+        $response["expire"] = $this->policy->getExpireAt();
+        $response["callback"] = $this->encodeCallback($this->callback->toArray());
+        $response["dir"] = $this->policy->getUserDir();
         return $response;
     }
 
@@ -93,7 +93,7 @@ class Token
      */
     protected function generateSignature($encodePolicy, $key)
     {
-        return base64_encode(hash_hmac('sha1', $encodePolicy, $key, true));
+        return base64_encode(hash_hmac("sha1", $encodePolicy, $key, true));
     }
 
     /**

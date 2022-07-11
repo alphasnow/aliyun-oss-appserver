@@ -16,7 +16,7 @@ class AppSeverController
     {
         $token = app(Token::class);
         // Dynamic configuration based on requirements
-        // $token->callback()->setCallbackUrl(url('api/app-server/callback'));
+        // $token->callback()->setCallbackUrl(url("api/app-server/callback"));
         return response()->json($token->response());
     }
 

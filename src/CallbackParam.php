@@ -12,12 +12,12 @@ class CallbackParam implements ArrayEntity
     /**
      * @var string
      */
-    protected $callbackBody = 'filename=${object}&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}';
+    protected $callbackBody = "filename=\${object}&size=\${size}&mimeType=\${mimeType}&height=\${imageInfo.height}&width=\${imageInfo.width}";
 
     /**
      * @var string
      */
-    protected $callbackBodyType = 'application/x-www-form-urlencoded';
+    protected $callbackBodyType = "application/x-www-form-urlencoded";
 
     /**
      * @param string $callbackUrl
@@ -95,9 +95,9 @@ class CallbackParam implements ArrayEntity
     public function toArray()
     {
         return [
-            'callbackUrl' => $this->callbackUrl,
-            'callbackBody' => $this->callbackBody,
-            'callbackBodyType' => $this->callbackBodyType
+            "callbackUrl" => $this->callbackUrl,
+            "callbackBody" => $this->callbackBody,
+            "callbackBodyType" => $this->callbackBodyType
         ];
     }
 }

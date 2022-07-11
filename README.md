@@ -85,8 +85,8 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
 1. Download [https://www.alibabacloud.com/help/en/object-storage-service/latest/add-signatures-on-the-client-by-using-javascript-and-upload-data-to-oss#title-l7m-nho-uap](https://www.alibabacloud.com/help/en/object-storage-service/latest/add-signatures-on-the-client-by-using-javascript-and-upload-data-to-oss#title-l7m-nho-uap)
 2. Find line 30 of `upload.js` and change it to the actual server address
     ```js
-    // serverUrl = 'http://88.88.88.88:8888'
-    serverUrl = 'http://laravel.local/api/app-server/token'
+    // serverUrl = "http://88.88.88.88:8888"
+    serverUrl = "http://laravel.local/api/app-server/token"
     ```
 3. Set the bucket of the OSS object storage to Cors(Check Post)
 

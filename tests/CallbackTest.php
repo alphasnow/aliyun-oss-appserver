@@ -12,8 +12,8 @@ class CallbackTest extends TestCase
 {
     public function callbackProvider()
     {
-        $pub = realpath(__DIR__.'/stubs/public.pem');
-        // $pri = realpath(__DIR__.'/stubs/private.pem');
+        $pub = realpath(__DIR__."/stubs/public.pem");
+        $pri = realpath(__DIR__."/stubs/private.pem");
 
         $callback = \Mockery::mock(Callback::class)
             ->makePartial()

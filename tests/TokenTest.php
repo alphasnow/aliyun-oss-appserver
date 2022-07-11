@@ -16,7 +16,7 @@ class TokenTest extends TestCase
         $token->policy()->setExpireAt(1647851236);
         $response = $token->response();
 
-        $this->assertSame("P2qcKX8/CKiCzEiDh6CE02HoTRk=", $response['signature']);
+        $this->assertSame("P2qcKX8/CKiCzEiDh6CE02HoTRk=", $response["signature"]);
     }
 
     public function testFactoryTokenResponse()
@@ -28,7 +28,7 @@ class TokenTest extends TestCase
         $token->policy()->setExpireAt(1647851236);
         $response = $token->response();
 
-        $this->assertSame("P2qcKX8/CKiCzEiDh6CE02HoTRk=", $response['signature']);
+        $this->assertSame("P2qcKX8/CKiCzEiDh6CE02HoTRk=", $response["signature"]);
     }
 
     public function testTokenSetter()
@@ -42,10 +42,10 @@ class TokenTest extends TestCase
         $this->assertSame("https://wx-static.oss-cn-hangzhou.aliyuncs.com", $token->access()->getOssHost());
 
         $token->callback()->setCallbackUrl("http://domain.com/notify")
-            ->setCallbackBody('{"filename":"${object}","size":${size},"mimeType":"${mimeType}"}')
+            ->setCallbackBody("{\"filename\":\"\${object}\",\"size\":\${size},\"mimeType\":\"\${mimeType}\"}")
             ->setCallbackBodyType("application/json");
         $this->assertSame("http://domain.com/notify", $token->callback()->getCallbackUrl());
-        $this->assertSame('{"filename":"${object}","size":${size},"mimeType":"${mimeType}"}', $token->callback()->getCallbackBody());
+        $this->assertSame("{\"filename\":\"\${object}\",\"size\":\${size},\"mimeType\":\"\${mimeType}\"}", $token->callback()->getCallbackBody());
         $this->assertSame("application/json", $token->callback()->getCallbackBodyType());
 
         $token->policy()->setExpireAt(1647851000)

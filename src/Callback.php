@@ -14,10 +14,10 @@ class Callback
     protected $publicKey;
 
     /**
-     * @param string $authorizationBase64 $_SERVER['HTTP_AUTHORIZATION']
-     * @param string $pubKeyUrlBase64 $_SERVER['HTTP_X_OSS_PUB_KEY_URL']
-     * @param string $requestUri $_SERVER['REQUEST_URI']
-     * @param string $requestBody file_get_contents('php://input')
+     * @param string $authorizationBase64 $_SERVER["HTTP_AUTHORIZATION"]
+     * @param string $pubKeyUrlBase64 $_SERVER["HTTP_X_OSS_PUB_KEY_URL"]
+     * @param string $requestUri $_SERVER["REQUEST_URI"]
+     * @param string $requestBody file_get_contents("php://input")
      * @return bool
      */
     public function verify($authorizationBase64, $pubKeyUrlBase64, $requestUri, $requestBody)
@@ -85,8 +85,8 @@ class Callback
      */
     protected function buildAuthStr($requestUri, $requestBody)
     {
-        $authStr = '';
-        $pos = strpos($requestUri, '?');
+        $authStr = "";
+        $pos = strpos($requestUri, "?");
         if ($pos === false) {
             $authStr .= urldecode($requestUri)."\n".$requestBody;
         } else {

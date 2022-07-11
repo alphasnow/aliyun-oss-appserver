@@ -39,10 +39,10 @@ class Policy implements ArrayEntity
     public function __construct($conditions = [], $expiration = null)
     {
         if (!empty($conditions)) {
-            $this->policy['conditions'] = $conditions;
+            $this->policy["conditions"] = $conditions;
         }
         if (!is_null($expiration)) {
-            $this->policy['expiration'] = $expiration;
+            $this->policy["expiration"] = $expiration;
         }
     }
 
@@ -134,7 +134,7 @@ class Policy implements ArrayEntity
      */
     protected function gmtIso8601($time)
     {
-        return str_replace('+00:00', '.000Z', gmdate('c', $time));
+        return str_replace("+00:00", ".000Z", gmdate("c", $time));
     }
 
     /**
@@ -146,13 +146,13 @@ class Policy implements ArrayEntity
             $this->expireAt = time() + $this->expireTime;
         }
         if ($this->expireAt) {
-            $this->policy['expiration'] = $this->gmtIso8601($this->expireAt);
+            $this->policy["expiration"] = $this->gmtIso8601($this->expireAt);
         }
         if ($this->maxSize) {
-            $this->policy['conditions'][] = ['content-length-range', 0, intval($this->maxSize)];
+            $this->policy["conditions"][] = ["content-length-range", 0, intval($this->maxSize)];
         }
         if ($this->userDir) {
-            $this->policy['conditions'][] = ['starts-with', '$key', $this->userDir];
+            $this->policy["conditions"][] = ["starts-with", "\$key", $this->userDir];
         }
         return $this->policy;
     }

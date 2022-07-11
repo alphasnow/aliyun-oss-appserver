@@ -84,8 +84,8 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
 1. 下载 [https://help.aliyun.com/document_detail/31927.html#section-kx3-tsk-gfb](https://help.aliyun.com/document_detail/31927.html#section-kx3-tsk-gfb)
 2. 找到`upload.js`的第30行代码,修改为实际服务器地址
     ```js
-    // serverUrl = 'http://88.88.88.88:8888'
-    serverUrl = 'http://laravel.local/api/app-server/token'
+    // serverUrl = "http://88.88.88.88:8888"
+    serverUrl = "http://laravel.local/api/app-server/token"
     ```
 3. OSS对象存储的对应bucket设置Cors(Post打勾）
 
