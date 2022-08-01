@@ -6,7 +6,7 @@ Web端直接上传数据至OSS, 服务端签名直传并设置上传回调.
 [![Latest Stable Version](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/v/stable)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
 [![Total Downloads](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/downloads)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
 [![License](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/license)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
-[![Build Status](https://github.com/alphasnow/aliyun-oss-appserver/workflows/CI/badge.svg)](https://github.com/alphasnow/aliyun-oss-appserver/actions)
+[![Test](https://github.com/alphasnow/aliyun-oss-appserver/workflows/Test/badge.svg?branch=1.x)](https://github.com/alphasnow/aliyun-oss-appserver/actions?query=branch:1.x)
 
 ## 安装依赖
 ```bash

@@ -7,7 +7,7 @@ Add signatures on the server, configure upload callback, and directly transfer d
 [![Latest Stable Version](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/v/stable)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
 [![Total Downloads](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/downloads)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
 [![License](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/license)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)
-[![Build Status](https://github.com/alphasnow/aliyun-oss-appserver/workflows/CI/badge.svg)](https://github.com/alphasnow/aliyun-oss-appserver/actions)
+[![Test](https://github.com/alphasnow/aliyun-oss-appserver/workflows/Test/badge.svg?branch=1.x)](https://github.com/alphasnow/aliyun-oss-appserver/actions?query=branch:1.x)
 
 ## Installation
 ```bash
