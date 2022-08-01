@@ -90,8 +90,10 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
     ```
 3. Set the bucket of the OSS object storage to Cors(Check Post)
 
-## Example data
-### Token response 
+## Examples
+[Example of single-file services with clients](examples)
+
+### Token response
 ```json
 {
     "accessid": "access_key_id",
@@ -114,9 +116,6 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
     "width": "353"
 }
 ```
-
-## Examples
-[Example of single-file services with clients](examples)
 
 ## Ali document
 > https://www.alibabacloud.com/help/en/object-storage-service/latest/obtain-signature-information-from-the-server-and-upload-data-to-oss

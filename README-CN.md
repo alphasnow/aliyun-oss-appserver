@@ -89,7 +89,9 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
     ```
 3. OSS对象存储的对应bucket设置Cors(Post打勾）
 
-## 数据示例
+## 示例
+[单文件服务与客户端的示例](examples)
+
 ### 授权响应示例
 ```json
 {
@@ -113,9 +115,6 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
     "width": "353"
 }
 ```
-
-## 示例
-[单文件服务与客户端的示例](examples)
 
 ## 阿里云文档
 > https://help.aliyun.com/document_detail/31927.html
