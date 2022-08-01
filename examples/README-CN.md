@@ -1,25 +1,25 @@
-English | [简体中文](README-CN.md)
+[English](README.md) | 简体中文
 
-# Example of single-file services with clients
+# 单文件服务与客户端的示例
 
 ```bash
-# clone project
+# 克隆
 git clone git@github.com:alphasnow/aliyun-oss-appserver.git
 
-# create autoload.php
+# 创建 autoload.php
 cd aliyun-oss-appserver/examples
 composer install
 
-# modify $config
+# 修改 $config
 vi token.php
 # "access_key_id" => "",
 # "access_key_secret" => "",
 # "bucket" => "",
 # "endpoint" => "",
 
-# deploy code
+# 部署代码
 cp -R ../examples/ /data/wwwroot/appserver/
 cd /data/wwwroot/appserver
 ```
 
-Open [http://localhost/appserver/index.html](http://localhost/appserver/index.html)
+访问 [http://localhost/appserver/index.html](http://localhost/appserver/index.html)

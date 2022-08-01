@@ -114,8 +114,8 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
 }
 ```
 
-## 单文件服务与客户端的示例
-[https://github.com/alphasnow/aliyun-oss-appserver/tree/main/examples](https://github.com/alphasnow/aliyun-oss-appserver/tree/main/examples)
+## 示例
+[单文件服务与客户端的示例](examples)
 
 ## 阿里云文档
 > https://help.aliyun.com/document_detail/31927.html

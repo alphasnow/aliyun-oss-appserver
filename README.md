@@ -115,9 +115,8 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
 }
 ```
 
-## Example of single-file services with clients
-[https://github.com/alphasnow/aliyun-oss-appserver/tree/main/examples](https://github.com/alphasnow/aliyun-oss-appserver/tree/main/examples)
-
+## Examples
+[Example of single-file services with clients](examples)
 
 ## Ali document
 > https://www.alibabacloud.com/help/en/object-storage-service/latest/obtain-signature-information-from-the-server-and-upload-data-to-oss
