@@ -1,0 +1,40 @@
+name: Test
+
+on:
+    push:
+        branches: ["1.x"]
+    pull_request:
+        branches: ["1.x"]
+
+jobs:
+    test:
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-18.04]
+                php: [7.2, 7.3, 7.4, 8.0, 8.1]
+                dependency-version: [prefer-lowest, prefer-stable]
+
+        runs-on: ${{ matrix.os }}
+
+        name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: curl, mbstring, zip, pcntl, iconv
+                  coverage: none
+
+            - name: Validate composer.json
+              run: composer validate --strict
+
+            - name: Install dependencies
+              run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+
+            - name: Run PHPUnit
+              run: ./vendor/bin/phpunit
