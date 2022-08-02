@@ -3,19 +3,16 @@
 # 单文件服务与客户端的示例
 
 ```bash
-# 克隆
+# 克隆项目
 git clone git@github.com:alphasnow/aliyun-oss-appserver.git
 
-# 创建 autoload.php
+# 初始化自动加载
 cd aliyun-oss-appserver/examples
 composer install
 
-# 修改 $config
-vi token.php
-# "access_key_id" => "",
-# "access_key_secret" => "",
-# "bucket" => "",
-# "endpoint" => "",
+# 修改配置
+cp config.php.example config.php
+vi config.php
 
 # 部署代码
 cp -R ../examples/ /data/wwwroot/appserver/

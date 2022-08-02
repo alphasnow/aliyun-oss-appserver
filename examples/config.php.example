@@ -1,0 +1,11 @@
+<?php
+return [
+    "access_key_id" => "",
+    "access_key_secret" => "",
+    "bucket" => "",
+    "endpoint" => "",
+    "callback_url"=> "",
+    "max_size"=> 1048576000,
+    "expire_time"=> 60,
+    "user_dir"=> "upload/"
+];

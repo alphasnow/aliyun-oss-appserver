@@ -11,11 +11,8 @@ cd aliyun-oss-appserver/examples
 composer install
 
 # modify $config
-vi token.php
-# "access_key_id" => "",
-# "access_key_secret" => "",
-# "bucket" => "",
-# "endpoint" => "",
+cp config.php.example config.php
+vi config.php
 
 # deploy code
 cp -R ../examples/ /data/wwwroot/appserver/

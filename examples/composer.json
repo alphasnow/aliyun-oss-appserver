@@ -7,6 +7,6 @@
         }
     ],
     "require": {
-        "alphasnow/aliyun-oss-appserver": "^0.3"
+        "alphasnow/aliyun-oss-appserver": "^1.0"
     }
 }
