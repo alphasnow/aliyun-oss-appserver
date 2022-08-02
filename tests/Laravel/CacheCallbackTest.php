@@ -3,6 +3,7 @@
 namespace AlphaSnow\OSS\AppServer\Tests\Laravel;
 
 use AlphaSnow\OSS\AppServer\Callback;
+use AlphaSnow\OSS\AppServer\Contracts\Callback as CallbackContract;
 use AlphaSnow\OSS\AppServer\Laravel\CacheCallback;
 use AlphaSnow\OSS\AppServer\Laravel\RequestCallback;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class CacheCallbackTest extends TestCase
     public function testVerify($callback)
     {
         $this->app->when(RequestCallback::class)
-            ->needs(Callback::class)
+            ->needs(CallbackContract::class)
             ->give(function () use ($callback) {
                 return $callback;
             });

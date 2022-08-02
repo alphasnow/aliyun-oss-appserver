@@ -37,6 +37,4 @@ class CallbackTest extends TestCase
         $status = $callback->verify($auth, $pubKey, $uri, $body);
         $this->assertTrue($status);
     }
-
-
 }

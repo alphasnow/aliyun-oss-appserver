@@ -32,8 +32,8 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 ```
 
 ## 快速使用
-### Laravel服务
-添加路由`routes/api.php`
+### Laravel服务端
+添加路由`routes/api.php`, 使用默认控制器.
 ```php
 Route::get("app-server/oss-token", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@token");
 Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@callback");
@@ -44,38 +44,14 @@ Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\SeverCo
 2. 找到`upload.js`的第30行代码,修改为实际服务器地址
     ```js
     // serverUrl = "http://88.88.88.88:8888"
-    serverUrl = "http://laravel.local/api/app-server/token"
+    serverUrl = "http://laravel.local/api/app-server/oss-token"
     ```
 3. OSS对象存储的对应bucket设置Cors(Post打勾）
 
 ## 示例
 [单文件服务与客户端的示例](examples)
 
-### 授权响应示例
-```json
-{
-    "accessid": "access_key_id",
-    "host": "https://bucket.endpoint.com",
-    "policy": "eyJleHBpcmF0aW9uIjoiMjAyMi0wMy0yMVQwODoyNzoxNi4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ1cGxvYWRcLyJdXX0=",
-    "signature": "P2qcKX8/CKiCzEiDh6CE02HoTRk=",
-    "expire": 1647851236,
-    "callback": "eyJjYWxsYmFja1VybCI6Imh0dHA6XC9cL2RvbWFpbi5jb21cL2NhbGxiYWNrIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JHtvYmplY3R9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZoZWlnaHQ9JHtpbWFnZUluZm8uaGVpZ2h0fSZ3aWR0aD0ke2ltYWdlSW5mby53aWR0aH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb25cL3gtd3d3LWZvcm0tdXJsZW5jb2RlZCJ9",
-    "dir": "upload/"
-}
-```
-
-### 回调请求示例
-```json
-{
-    "filename": "upload/894a60bb3ce807d5f39f9b11bfb94f3d.png",
-    "size": "256270",
-    "mimeType": "image/png",
-    "height": "529",
-    "width": "353"
-}
-```
-
-## 动态配置
+### 动态配置
 ```php
 use AlphaSnow\OSS\AppServer\Factory;
 

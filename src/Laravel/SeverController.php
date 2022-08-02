@@ -29,7 +29,7 @@ class SeverController
      */
     public function callback()
     {
-        $status = app(CacheCallback::class)->verifyByRequest();
+        $status = app(CacheCallback::class)->verify();
         if ($status == false) {
             return response()->json(["status" => "fail"], 403);
         }

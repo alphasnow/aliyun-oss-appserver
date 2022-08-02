@@ -40,7 +40,7 @@ class CacheCallback implements SimpleCallback
         $cacheKey = self::KEY_PUBLIC.":".$pubKey;
         $publicKey = $this->cache->store()->get($cacheKey);
         if (!$publicKey) {
-            $publicKey = $this->laravelCallback->getCallback()->parsePublicKey(Callback::KEY_PUB);
+            $publicKey = $this->laravelCallback->getCallback()->parsePublicKey(base64_decode($pubKey));
             if (!$publicKey) {
                 return false;
             }

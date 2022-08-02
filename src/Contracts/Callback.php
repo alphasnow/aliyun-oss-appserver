@@ -25,7 +25,7 @@ interface Callback
 
     /**
      * @param string $pubKey
-     * @return $this
+     * @return Callback
      */
     public function setPublicKey($pubKey);
 }

@@ -2,7 +2,7 @@
 
 namespace AlphaSnow\OSS\AppServer\Callbacks;
 
-use AlphaSnow\OSS\AppServer\Callback;
+use AlphaSnow\OSS\AppServer\Contracts\Callback;
 use AlphaSnow\OSS\AppServer\Contracts\SimpleCallback;
 
 class ServerCallback implements SimpleCallback
