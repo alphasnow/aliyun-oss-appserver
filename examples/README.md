@@ -19,24 +19,6 @@ cp -R ../examples/ /data/wwwroot/appserver/
 cd /data/wwwroot/appserver
 ```
 
-## Dynamic configuration
-```php
-use AlphaSnow\OSS\AppServer\Factory;
-
-$token = (new Factory($config))->makeToken();
-
-// Change the address of the direct transmission server
-$token->access()->setOssHost("https://bucket.endpoint.com");
-
-// Change the upload directory/timeout period to 60 seconds/maximum file limit to 500 MB
-$token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
-
-// Change the callback address/callback body/callback header
-$token->callback()->setCallbackUrl("http://domain.com/oss-callback")
-    ->setCallbackBody("filename=\${object}&size=\${size}&mimeType=\${mimeType}&height=\${imageInfo.height}&width=\${imageInfo.width}")
-    ->setCallbackBodyType("application/x-www-form-urlencoded");
-```
-
 Open [http://localhost/appserver/index.html](http://localhost/appserver/index.html)
 
 ### Token response
