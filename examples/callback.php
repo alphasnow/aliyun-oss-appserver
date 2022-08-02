@@ -2,9 +2,9 @@
 require "./vendor/autoload.php";
 
 use AlphaSnow\OSS\AppServer\Callback;
-use AlphaSnow\OSS\AppServer\StrandCallback;
+use AlphaSnow\OSS\AppServer\ServerCallback;
 
-$status = (new StrandCallback(new Callback))->verifyByRequest();
+$status = (new ServerCallback(new Callback))->verifyByRequest();
 if ($status == false) {
     header("HTTP/1.1 403 Forbidden");
     header("Content-Type: application/json; charset=utf-8");

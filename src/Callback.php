@@ -2,12 +2,10 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-class Callback
-{
-    const KEY_AUTH = "HTTP_AUTHORIZATION";
-    const KEY_PUB = "HTTP_X_OSS_PUB_KEY_URL";
-    const KEY_URI = "REQUEST_URI";
+use AlphaSnow\OSS\AppServer\Contracts\Callback as CallbackContract;
 
+class Callback implements CallbackContract
+{
     /**
      * @var string
      */
@@ -31,7 +29,7 @@ class Callback
         if (!$pubKeyUrl) {
             return false;
         }
-        $pubKey = $this->getPublicKey($pubKeyUrl);
+        $pubKey = $this->parsePublicKey($pubKeyUrl);
         if (!$pubKey) {
             return false;
         }
@@ -46,7 +44,7 @@ class Callback
      * @param string $pubKeyUrl
      * @return string
      */
-    public function getPublicKey($pubKeyUrl)
+    public function parsePublicKey($pubKeyUrl)
     {
         if (!$this->publicKey) {
             $this->publicKey = $this->downloadPublicKey($pubKeyUrl);

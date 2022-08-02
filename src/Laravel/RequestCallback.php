@@ -1,10 +1,12 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer;
+namespace AlphaSnow\OSS\AppServer\Laravel;
 
+use AlphaSnow\OSS\AppServer\Contracts\Callback;
+use AlphaSnow\OSS\AppServer\Contracts\SimpleCallback;
 use Illuminate\Http\Request;
 
-class LaravelCallback implements SimpleCallback
+class RequestCallback implements SimpleCallback
 {
     /**
      * @var Request
@@ -29,7 +31,7 @@ class LaravelCallback implements SimpleCallback
     /**
      * @return bool
      */
-    public function verifyByRequest()
+    public function verify()
     {
         return $this->callback->verify(
             $this->request->server(Callback::KEY_AUTH),

@@ -1,8 +1,11 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer;
+namespace AlphaSnow\OSS\AppServer\Callbacks;
 
-class StrandCallback implements SimpleCallback
+use AlphaSnow\OSS\AppServer\Callback;
+use AlphaSnow\OSS\AppServer\Contracts\SimpleCallback;
+
+class ServerCallback implements SimpleCallback
 {
     /**
      * @var Callback
@@ -20,7 +23,7 @@ class StrandCallback implements SimpleCallback
     /**
      * @return bool
      */
-    public function verifyByRequest()
+    public function verify()
     {
         return $this->callback->verify(
             $_SERVER["HTTP_AUTHORIZATION"],

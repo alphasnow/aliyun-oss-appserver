@@ -1,16 +1,18 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer;
+namespace AlphaSnow\OSS\AppServer\Laravel;
 
+use AlphaSnow\OSS\AppServer\Contracts\Callback;
+use AlphaSnow\OSS\AppServer\Contracts\SimpleCallback;
 use Carbon\Carbon;
 use Illuminate\Contracts\Cache\Factory as Cache;
 
-class LaravelCacheCallback implements SimpleCallback
+class CacheCallback implements SimpleCallback
 {
-    const KEY_PUBLIC = "oss-appserver:public-key";
+    const KEY_PUBLIC = "oss-app-server:public-key";
 
     /**
-     * @var LaravelCallback
+     * @var RequestCallback
      */
     protected $laravelCallback;
 
@@ -20,10 +22,10 @@ class LaravelCacheCallback implements SimpleCallback
     protected $cache;
 
     /**
-     * @param LaravelCallback $laravelCallback
+     * @param RequestCallback $laravelCallback
      * @param Cache $cache
      */
-    public function __construct(LaravelCallback $laravelCallback, Cache $cache)
+    public function __construct(RequestCallback $laravelCallback, Cache $cache)
     {
         $this->laravelCallback = $laravelCallback;
         $this->cache = $cache;
@@ -32,13 +34,13 @@ class LaravelCacheCallback implements SimpleCallback
     /**
      * @return bool
      */
-    public function verifyByRequest()
+    public function verify()
     {
         $pubKey = $this->laravelCallback->getRequest()->server(Callback::KEY_PUB);
         $cacheKey = self::KEY_PUBLIC.":".$pubKey;
         $publicKey = $this->cache->store()->get($cacheKey);
         if (!$publicKey) {
-            $publicKey = $this->laravelCallback->getCallback()->getPublicKey(Callback::KEY_PUB);
+            $publicKey = $this->laravelCallback->getCallback()->parsePublicKey(Callback::KEY_PUB);
             if (!$publicKey) {
                 return false;
             }
@@ -46,6 +48,6 @@ class LaravelCacheCallback implements SimpleCallback
         }
         $this->laravelCallback->getCallback()->setPublicKey($publicKey);
 
-        return $this->laravelCallback->verifyByRequest();
+        return $this->laravelCallback->verify();
     }
 }

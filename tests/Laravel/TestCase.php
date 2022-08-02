@@ -1,8 +1,8 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer\Tests;
+namespace AlphaSnow\OSS\AppServer\Tests\Laravel;
 
-use AlphaSnow\OSS\AppServer\ServiceProvider;
+use AlphaSnow\OSS\AppServer\Laravel\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase

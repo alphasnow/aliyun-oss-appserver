@@ -1,11 +1,13 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer;
+namespace AlphaSnow\OSS\AppServer\Laravel;
+
+use AlphaSnow\OSS\AppServer\Token;
 
 /**
  * Directly transfer data
  */
-class AppSeverController
+class SeverController
 {
     /**
      * Request authorization
@@ -27,7 +29,7 @@ class AppSeverController
      */
     public function callback()
     {
-        $status = app(LaravelCacheCallback::class)->verifyByRequest();
+        $status = app(CacheCallback::class)->verifyByRequest();
         if ($status == false) {
             return response()->json(["status" => "fail"], 403);
         }

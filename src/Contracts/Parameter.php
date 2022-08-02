@@ -1,8 +1,8 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer;
+namespace AlphaSnow\OSS\AppServer\Contracts;
 
-interface ArrayEntity
+interface Parameter
 {
     /**
      * @return array

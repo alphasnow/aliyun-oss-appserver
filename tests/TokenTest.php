@@ -4,39 +4,48 @@ namespace AlphaSnow\OSS\AppServer\Tests;
 
 use AlphaSnow\OSS\AppServer\Factory;
 use AlphaSnow\OSS\AppServer\Token;
+use PHPUnit\Framework\TestCase;
 
 class TokenTest extends TestCase
 {
-    public function testAppTokenResponse()
+    public function testResponse()
     {
+        $config = [
+            "access_key_id" => "access_key_id",
+            "access_key_secret" => "access_key_secret",
+            "bucket" => "bucket",
+            "endpoint" => "endpoint.com",
+            "max_size" => 1048576000,
+            "expire_time" => 60,
+            "user_dir" => "upload/",
+            "callback_url" => "http://domain.com/callback"
+        ];
         /**
          * @var Token $token
          */
-        $token = $this->app->make(Token::class);
+        $token = (new Factory($config))->makeToken();
         $token->policy()->setExpireAt(1647851236);
         $response = $token->response();
 
         $this->assertSame("P2qcKX8/CKiCzEiDh6CE02HoTRk=", $response["signature"]);
     }
 
-    public function testFactoryTokenResponse()
+    public function testSetter()
     {
+        $config = [
+            "access_key_id" => "access_key_id",
+            "access_key_secret" => "access_key_secret",
+            "bucket" => "bucket",
+            "endpoint" => "endpoint.com",
+            "max_size" => 1048576000,
+            "expire_time" => 60,
+            "user_dir" => "upload/",
+            "callback_url" => "http://domain.com/callback"
+        ];
         /**
          * @var Token $token
          */
-        $token = (new Factory())->makeToken(config("oss-appserver"));
-        $token->policy()->setExpireAt(1647851236);
-        $response = $token->response();
-
-        $this->assertSame("P2qcKX8/CKiCzEiDh6CE02HoTRk=", $response["signature"]);
-    }
-
-    public function testTokenSetter()
-    {
-        /**
-         * @var Token $token
-         */
-        $token = (new Factory())->makeToken(config("oss-appserver"));
+        $token = (new Factory($config))->makeToken();
 
         $token->access()->setOssHost("https://wx-static.oss-cn-hangzhou.aliyuncs.com");
         $this->assertSame("https://wx-static.oss-cn-hangzhou.aliyuncs.com", $token->access()->getOssHost());

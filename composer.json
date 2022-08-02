@@ -40,7 +40,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "AlphaSnow\\OSS\\AppServer\\ServiceProvider"
+                "AlphaSnow\\OSS\\AppServer\\Laravel\\ServiceProvider"
             ]
         }
     },

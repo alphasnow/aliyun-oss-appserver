@@ -12,6 +12,6 @@ function getCallbackURL(){
 $cfg = require "./config.php";
 // $cfg["callback_url"] = getCallbackURL();
 
-$token = (new Factory)->makeToken($cfg);
+$token = (new Factory($cfg))->makeToken();
 header("Content-Type: application/json; charset=utf-8");
 echo json_encode($token->response());

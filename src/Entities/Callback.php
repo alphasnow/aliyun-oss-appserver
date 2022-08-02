@@ -1,8 +1,10 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer;
+namespace AlphaSnow\OSS\AppServer\Entities;
 
-class CallbackParam implements ArrayEntity
+use AlphaSnow\OSS\AppServer\Contracts\Parameter;
+
+class Callback implements Parameter
 {
     /**
      * @var string
@@ -45,7 +47,7 @@ class CallbackParam implements ArrayEntity
 
     /**
      * @param string $callbackUrl
-     * @return CallbackParam
+     * @return Callback
      */
     public function setCallbackUrl($callbackUrl)
     {
@@ -63,7 +65,7 @@ class CallbackParam implements ArrayEntity
 
     /**
      * @param string $callbackBody
-     * @return CallbackParam
+     * @return Callback
      */
     public function setCallbackBody(string $callbackBody)
     {
@@ -81,7 +83,7 @@ class CallbackParam implements ArrayEntity
 
     /**
      * @param string $callbackBodyType
-     * @return CallbackParam
+     * @return Callback
      */
     public function setCallbackBodyType(string $callbackBodyType)
     {

@@ -2,10 +2,12 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-/**
- * @link https://help.aliyun.com/document_detail/31927.html
- */
-class Token
+use AlphaSnow\OSS\AppServer\Entities\AccessKey;
+use AlphaSnow\OSS\AppServer\Entities\Policy;
+use AlphaSnow\OSS\AppServer\Entities\Callback;
+use AlphaSnow\OSS\AppServer\Contracts\Token as TokenContract;
+
+class Token implements TokenContract
 {
     /**
      * @var Policy
@@ -13,7 +15,7 @@ class Token
     protected $policy;
 
     /**
-     * @var CallbackParam
+     * @var Callback
      */
     protected $callback;
 
@@ -25,9 +27,9 @@ class Token
     /**
      * @param AccessKey $accessKey
      * @param Policy $policy
-     * @param CallbackParam $callback
+     * @param Callback $callback
      */
-    public function __construct(AccessKey $accessKey, Policy $policy, CallbackParam $callback)
+    public function __construct(AccessKey $accessKey, Policy $policy, Callback $callback)
     {
         $this->policy = $policy;
         $this->callback = $callback;
@@ -43,7 +45,7 @@ class Token
     }
 
     /**
-     * @return CallbackParam
+     * @return Callback
      */
     public function callback()
     {

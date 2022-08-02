@@ -1,11 +1,10 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer;
+namespace AlphaSnow\OSS\AppServer\Entities;
 
-/**
- * @link https://help.aliyun.com/document_detail/31988.htm#section-d5z-1ww-wdb
- */
-class Policy implements ArrayEntity
+use AlphaSnow\OSS\AppServer\Contracts\Parameter;
+
+class Policy implements Parameter
 {
     /**
      * @var array

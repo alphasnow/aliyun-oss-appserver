@@ -32,52 +32,11 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 ```
 
 ## 快速使用
-### Laravel服务端
+### Laravel服务
 添加路由`routes/api.php`
 ```php
-Route::get("app-server/token","AppSeverController@token");
-Route::post("app-server/callback","AppSeverController@callback")->name("app-server.callback");
-```
-添加控制器`app/Http/controllers/AppSeverController.php`
-```php
-namespace App\Http\Controllers;
-
-use AlphaSnow\OSS\AppServer\Token;
-use AlphaSnow\OSS\AppServer\LaravelCacheCallback;
-
-class AppSeverController
-{
-    public function token(){
-        $token = app(Token::class);
-        // 根据需求动态配置
-        // $token->callback()->setCallbackUrl(route("app-server.callback"));
-        return response()->json($token->response());
-    }
-
-    public function callback(){
-        $status = app(LaravelCacheCallback::class)->verifyByRequest();
-        if ($status == false) {
-            return response()->json(["status" => "fail"],403);
-        }
-        // 默认回调参数: filename, size, mimeType, height, width
-        // $filename = request()->post("filename");
-        return response()->json(["status" => "ok"]);
-    }
-}
-```
-
-#### 动态配置
-```php
-// 修改直传服务器地址
-$token->access()->setOssHost("https://bucket.endpoint.com");
-
-// 修改上传目录/超时时间60秒/最大文件限制500M
-$token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
-
-// 修改回调地址/回调数据/回调请求头
-$token->callback()->setCallbackUrl("http://domain.com/callback")
-    ->setCallbackBody("filename=\${object}&size=\${size}&mimeType=\${mimeType}&height=\${imageInfo.height}&width=\${imageInfo.width}")
-    ->setCallbackBodyType("application/x-www-form-urlencoded");
+Route::get("app-server/oss-token", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@token");
+Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@callback");
 ```
 
 ### Web客户端
@@ -114,6 +73,24 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
     "height": "529",
     "width": "353"
 }
+```
+
+## 动态配置
+```php
+use AlphaSnow\OSS\AppServer\Factory;
+
+$token = (new Factory($config))->makeToken();
+
+// 修改直传服务器地址
+$token->access()->setOssHost("https://bucket.endpoint.com");
+
+// 修改上传目录/超时时间60秒/最大文件限制500M
+$token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
+
+// 修改回调地址/回调数据/回调请求头
+$token->callback()->setCallbackUrl("http://domain.com/callback")
+    ->setCallbackBody("filename=\${object}&size=\${size}&mimeType=\${mimeType}&height=\${imageInfo.height}&width=\${imageInfo.width}")
+    ->setCallbackBodyType("application/x-www-form-urlencoded");
 ```
 
 ## 阿里云文档

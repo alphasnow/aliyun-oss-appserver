@@ -1,8 +1,10 @@
 <?php
 
-namespace AlphaSnow\OSS\AppServer;
+namespace AlphaSnow\OSS\AppServer\Entities;
 
-class AccessKey implements ArrayEntity
+use AlphaSnow\OSS\AppServer\Contracts\Parameter;
+
+class AccessKey implements Parameter
 {
     /**
      * @var string

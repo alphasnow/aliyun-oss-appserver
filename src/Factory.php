@@ -2,54 +2,61 @@
 
 namespace AlphaSnow\OSS\AppServer;
 
-class Factory
+use AlphaSnow\OSS\AppServer\Entities\AccessKey;
+use AlphaSnow\OSS\AppServer\Entities\Policy;
+use AlphaSnow\OSS\AppServer\Entities\Callback;
+use AlphaSnow\OSS\AppServer\Contracts\Factory as FactoryContract;
+
+class Factory implements FactoryContract
 {
+    protected $config;
+    public function __construct(array $config)
+    {
+        $this->config = $config;
+    }
+
     /**
-     * @param array $config
      * @return Token
      */
-    public function makeToken(array $config)
+    public function makeToken()
     {
-        $accessKey = $this->makeAccessKey($config);
-        $policy = $this->makePolicy($config);
-        $callback = $this->makeCallbackParam($config);
+        $accessKey = $this->makeAccessKey();
+        $policy = $this->makePolicy();
+        $callback = $this->makeCallback();
         return new Token($accessKey, $policy, $callback);
     }
 
     /**
-     * @param array $config
      * @return AccessKey
      */
-    public function makeAccessKey(array $config)
+    public function makeAccessKey()
     {
-        return new AccessKey($config["access_key_id"], $config["access_key_secret"], $config["bucket"], $config["endpoint"], $config["host"] ?? null);
+        return new AccessKey($this->config["access_key_id"], $this->config["access_key_secret"], $this->config["bucket"], $this->config["endpoint"], $this->config["host"] ?? null);
     }
 
     /**
-     * @param array $config
      * @return Policy
      */
-    public function makePolicy(array $config)
+    public function makePolicy()
     {
         $policy = new Policy();
-        if (isset($config["expire_time"])) {
-            $policy->setExpireTime($config["expire_time"]);
+        if (isset($this->config["expire_time"])) {
+            $policy->setExpireTime($this->config["expire_time"]);
         }
-        if (isset($config["max_size"])) {
-            $policy->setMaxSize($config["max_size"]);
+        if (isset($this->config["max_size"])) {
+            $policy->setMaxSize($this->config["max_size"]);
         }
-        if (isset($config["user_dir"])) {
-            $policy->setUserDir($config["user_dir"]);
+        if (isset($this->config["user_dir"])) {
+            $policy->setUserDir($this->config["user_dir"]);
         }
         return $policy;
     }
 
     /**
-     * @param array $config
-     * @return CallbackParam
+     * @return Callback
      */
-    public function makeCallbackParam(array $config)
+    public function makeCallback()
     {
-        return new CallbackParam($config["callback_url"], $config["callback_body"] ?? null, $config["callback_body_type"] ?? null);
+        return new Callback($this->config["callback_url"], $this->config["callback_body"] ?? null, $this->config["callback_body_type"] ?? null);
     }
 }

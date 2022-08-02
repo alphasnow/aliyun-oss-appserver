@@ -36,49 +36,8 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 ### Laravel server
 Add route `routes/api.php`
 ```php
-Route::get("app-server/token","AppSeverController@token");
-Route::post("app-server/callback","AppSeverController@callback")->name("app-server.callback");
-```
-Add controller `app/Http/controllers/AppSeverController.php`
-```php
-namespace App\Http\Controllers;
-
-use AlphaSnow\OSS\AppServer\Token;
-use AlphaSnow\OSS\AppServer\LaravelCacheCallback;
-
-class AppSeverController
-{
-    public function token(){
-        $token = app(Token::class);
-        // Dynamic configuration based on requirements
-        // $token->callback()->setCallbackUrl(route("app-server.callback"));
-        return response()->json($token->response());
-    }
-
-    public function callback(){
-        $status = app(LaravelCacheCallback::class)->verifyByRequest();
-        if ($status == false) {
-            return response()->json(["status" => "fail"],403);
-        }
-        // Default callback parameters: filename, size, mimeType, height, width
-        // $filename = request()->post("filename");
-        return response()->json(["status" => "ok"]);
-    }
-}
-```
-
-#### Dynamic configuration
-```php
-// Change the address of the direct transmission server
-$token->access()->setOssHost("https://bucket.endpoint.com");
-
-// Change the upload directory/timeout period to 60 seconds/maximum file limit to 500 MB
-$token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
-
-// Change the callback address/callback body/callback header
-$token->callback()->setCallbackUrl("http://domain.com/callback")
-    ->setCallbackBody("filename=\${object}&size=\${size}&mimeType=\${mimeType}&height=\${imageInfo.height}&width=\${imageInfo.width}")
-    ->setCallbackBodyType("application/x-www-form-urlencoded");
+Route::get("app-server/oss-token", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@token");
+Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@callback");
 ```
 
 ### Web client
@@ -86,7 +45,7 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
 2. Find line 30 of `upload.js` and change it to the actual server address
     ```js
     // serverUrl = "http://88.88.88.88:8888"
-    serverUrl = "http://laravel.local/api/app-server/token"
+    serverUrl = "http://laravel.local/api/app-server/oss-token"
     ```
 3. Set the bucket of the OSS object storage to Cors(Check Post)
 
@@ -115,6 +74,24 @@ $token->callback()->setCallbackUrl("http://domain.com/callback")
     "height": "529",
     "width": "353"
 }
+```
+
+## Dynamic configuration
+```php
+use AlphaSnow\OSS\AppServer\Factory;
+
+$token = (new Factory($config))->makeToken();
+
+// Change the address of the direct transmission server
+$token->access()->setOssHost("https://bucket.endpoint.com");
+
+// Change the upload directory/timeout period to 60 seconds/maximum file limit to 500 MB
+$token->policy()->setUserDir("upload/")->setExpireTime(60)->setMaxSize(500*1024*1024);
+
+// Change the callback address/callback body/callback header
+$token->callback()->setCallbackUrl("http://domain.com/oss-callback")
+    ->setCallbackBody("filename=\${object}&size=\${size}&mimeType=\${mimeType}&height=\${imageInfo.height}&width=\${imageInfo.width}")
+    ->setCallbackBodyType("application/x-www-form-urlencoded");
 ```
 
 ## Ali document
