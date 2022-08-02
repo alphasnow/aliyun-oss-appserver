@@ -36,8 +36,8 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 ### Laravel server
 Add route `routes/api.php`, Use the default controller.
 ```php
-Route::get("app-server/oss-token", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@token");
-Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@callback");
+Route::get("app-server/oss-token", "\AlphaSnow\OSS\AppServer\Laravel\ServerController@token");
+Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\ServerController@callback");
 ```
 
 ### Web client

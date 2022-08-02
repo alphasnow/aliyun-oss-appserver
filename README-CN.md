@@ -35,8 +35,8 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 ### Laravel服务端
 添加路由`routes/api.php`, 使用默认控制器.
 ```php
-Route::get("app-server/oss-token", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@token");
-Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\SeverController@callback");
+Route::get("app-server/oss-token", "\AlphaSnow\OSS\AppServer\Laravel\ServerController@token");
+Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\ServerController@callback");
 ```
 
 ### Web客户端

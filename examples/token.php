@@ -14,4 +14,4 @@ $cfg = require "./config.php";
 
 $token = (new Factory($cfg))->makeToken();
 header("Content-Type: application/json; charset=utf-8");
-echo json_encode($token->response());
+echo json_encode($token->response()->toArray());

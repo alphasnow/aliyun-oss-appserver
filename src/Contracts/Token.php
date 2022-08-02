@@ -20,7 +20,7 @@ interface Token
     public function access();
 
     /**
-     * @return array
+     * @return Parameter
      */
     public function response();
 }

@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class CacheCallback implements SimpleCallback
 {
-    const KEY_PUBLIC = "oss-app-server:public-key";
+    const KEY_PUBLIC = "oss-server:public-key";
 
     /**
      * @var RequestCallback
@@ -40,7 +40,8 @@ class CacheCallback implements SimpleCallback
         $cacheKey = self::KEY_PUBLIC.":".$pubKey;
         $publicKey = $this->cache->store()->get($cacheKey);
         if (!$publicKey) {
-            $publicKey = $this->laravelCallback->getCallback()->parsePublicKey(base64_decode($pubKey));
+            $publicKeyUrl = base64_decode($pubKey);
+            $publicKey = $this->laravelCallback->getCallback()->parsePublicKey($publicKeyUrl);
             if (!$publicKey) {
                 return false;
             }

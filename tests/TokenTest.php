@@ -27,7 +27,7 @@ class TokenTest extends TestCase
         $token->policy()->setExpireAt(1647851236);
         $response = $token->response();
 
-        $this->assertSame("P2qcKX8/CKiCzEiDh6CE02HoTRk=", $response["signature"]);
+        $this->assertSame("P2qcKX8/CKiCzEiDh6CE02HoTRk=", $response->getSignature());
     }
 
     public function testSetter()

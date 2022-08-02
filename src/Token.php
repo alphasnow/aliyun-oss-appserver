@@ -5,6 +5,7 @@ namespace AlphaSnow\OSS\AppServer;
 use AlphaSnow\OSS\AppServer\Entities\AccessKey;
 use AlphaSnow\OSS\AppServer\Entities\Policy;
 use AlphaSnow\OSS\AppServer\Entities\Callback;
+use AlphaSnow\OSS\AppServer\Entities\Response;
 use AlphaSnow\OSS\AppServer\Contracts\Token as TokenContract;
 
 class Token implements TokenContract
@@ -61,19 +62,19 @@ class Token implements TokenContract
     }
 
     /**
-     * @return array
+     * @return Response
      */
     public function response()
     {
-        $response = [];
-        $response["accessid"] = $this->access->getAccessKeyId();
-        $response["host"] = $this->access->getOssHost();
-        $response["policy"] = $this->encodePolicy($this->policy->toArray());
-        $response["signature"] = $this->generateSignature($response["policy"], $this->access->getAccessKeySecret());
-        $response["expire"] = $this->policy->getExpireAt();
-        $response["callback"] = $this->encodeCallback($this->callback->toArray());
-        $response["dir"] = $this->policy->getUserDir();
-        return $response;
+        $resp = new Response();
+        $resp->setAccessId($this->access->getAccessKeyId());
+        $resp->setHost($this->access->getOssHost());
+        $resp->setPolicy($this->encodePolicy($this->policy->toArray()));
+        $resp->setSignature($this->generateSignature($resp->getPolicy(), $this->access->getAccessKeySecret()));
+        $resp->setExpire($this->policy->getExpireAt());
+        $resp->setCallback($this->encodeCallback($this->callback->toArray()));
+        $resp->setDir($this->policy->getUserDir());
+        return $resp;
     }
 
     /**

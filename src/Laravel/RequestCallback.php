@@ -2,7 +2,7 @@
 
 namespace AlphaSnow\OSS\AppServer\Laravel;
 
-use AlphaSnow\OSS\AppServer\Contracts\Callback;
+use AlphaSnow\OSS\AppServer\Callback;
 use AlphaSnow\OSS\AppServer\Contracts\SimpleCallback;
 use Illuminate\Http\Request;
 

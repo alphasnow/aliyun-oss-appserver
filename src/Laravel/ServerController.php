@@ -7,7 +7,7 @@ use AlphaSnow\OSS\AppServer\Token;
 /**
  * Directly transfer data
  */
-class SeverController
+class ServerController
 {
     /**
      * Request authorization
@@ -19,7 +19,7 @@ class SeverController
         $token = app(Token::class);
         // Dynamic configuration based on requirements
         // $token->callback()->setCallbackUrl(url("api/app-server/callback"));
-        return response()->json($token->response());
+        return response()->json($token->response()->toArray());
     }
 
     /**
