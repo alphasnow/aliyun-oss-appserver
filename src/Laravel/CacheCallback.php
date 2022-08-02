@@ -4,8 +4,8 @@ namespace AlphaSnow\OSS\AppServer\Laravel;
 
 use AlphaSnow\OSS\AppServer\Contracts\Callback;
 use AlphaSnow\OSS\AppServer\Contracts\SimpleCallback;
-use Carbon\Carbon;
 use Illuminate\Contracts\Cache\Factory as Cache;
+use Carbon\Carbon;
 
 class CacheCallback implements SimpleCallback
 {

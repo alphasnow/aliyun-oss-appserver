@@ -2,7 +2,6 @@
 
 namespace AlphaSnow\OSS\AppServer\Tests\Laravel;
 
-use AlphaSnow\OSS\AppServer\Factory;
 use AlphaSnow\OSS\AppServer\Token;
 
 class TokenTest extends TestCase

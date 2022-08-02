@@ -9,7 +9,14 @@ use AlphaSnow\OSS\AppServer\Contracts\Factory as FactoryContract;
 
 class Factory implements FactoryContract
 {
+    /**
+     * @var array
+     */
     protected $config;
+
+    /**
+     * @param array $config
+     */
     public function __construct(array $config)
     {
         $this->config = $config;
