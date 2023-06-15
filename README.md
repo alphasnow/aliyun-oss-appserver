@@ -19,12 +19,15 @@ Modify the environment file `.env`
 ```env
 OSS_ACCESS_KEY_ID=<Your aliyun accessKeyId, Required, Example: LT************Hz>
 OSS_ACCESS_KEY_SECRET=<Your aliyun accessKeySecret, Required, Example: Q5**************************PD>
-OSS_BUCKET=<Your oss bucket name, Required, Example: my-files>
+OSS_BUCKET=<Your oss bucket name, Required, Example: x-storage>
 OSS_ENDPOINT=<Your oss endpoint domain, Required, Example: oss-cn-hangzhou.aliyuncs.com>
-OSS_CALLBACK_URL=<Default callback address, Optional, Example: https://my-domain.com/callback>
-OSS_POLICY_MAX_SIZE=<Default maximum file size 1000MB, Optional, Example: 1048576000>
-OSS_POLICY_EXPIRE_TIME=<Default expiration time 3600s, Optional, Example: 3600>
+OSS_SSL=<Whether to use ssl, Optional, Example: true>
+OSS_DOMAIN=<Domain name addresses, Optional, Example: x-storage.domain.com>
+OSS_CALLBACK_URL=<Default callback address, Optional, Example: https://api.domain.com/callback>
+OSS_POLICY_MAX_SIZE=<Default maximum file size 1GB, Optional, Example: 1048576000>
+OSS_POLICY_EXPIRE_TIME=<Default expiration time 1 hour, Optional, Example: 3600>
 OSS_POLICY_USER_DIR=<Default Upload Directory upload/, Optional, Example: upload/>
+
 ```
 
 (Optional) Modify the config file `config/oss-appserver.php`
@@ -33,6 +36,10 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 ```
 
 ## Usage
+### OSS configuration
+- CORS configuration / Create rule / Example: `Soucre: *, Allow Methods: POST`
+
+
 ### Laravel server
 Add route `routes/api.php`, Use the default controller.
 ```php
@@ -42,12 +49,11 @@ Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\ServerC
 
 ### Web client
 1. Download [https://www.alibabacloud.com/help/en/object-storage-service/latest/add-signatures-on-the-client-by-using-javascript-and-upload-data-to-oss#title-l7m-nho-uap](https://www.alibabacloud.com/help/en/object-storage-service/latest/add-signatures-on-the-client-by-using-javascript-and-upload-data-to-oss#title-l7m-nho-uap)
-2. Find line 30 of `upload.js` and change it to the actual server address
+2. Find line 30 of `upload.js` and change it to the actual server address, example: `http://laravel.local`
     ```js
     // serverUrl = "http://88.88.88.88:8888"
     serverUrl = "http://laravel.local/api/app-server/oss-token"
     ```
-3. Set the bucket of the OSS object storage to Cors(Check Post)
 
 ## Examples
 [Example of single-file services with clients](examples)

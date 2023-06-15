@@ -4,7 +4,7 @@
 
 ```bash
 # 克隆项目
-git clone git@github.com:alphasnow/aliyun-oss-appserver.git
+git clone https://github.com/alphasnow/aliyun-oss-appserver.git
 
 # 初始化自动加载
 cd aliyun-oss-appserver/examples
@@ -14,12 +14,11 @@ composer install
 cp config.php.example config.php
 vi config.php
 
-# 部署代码
-cp -R ../examples/ /data/wwwroot/appserver/
-cd /data/wwwroot/appserver
+# 启动服务
+php -S 127.0.0.1:8080
 ```
 
-访问 [http://localhost/appserver/index.html](http://localhost/appserver/index.html)
+访问 [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
 ### 授权响应示例
 ```json

@@ -4,6 +4,9 @@ namespace AlphaSnow\OSS\AppServer\Entities;
 
 use AlphaSnow\OSS\AppServer\Contracts\Parameter;
 
+/**
+ * @link https://help.aliyun.com/document_detail/31988.htm#section-d5z-1ww-wdb
+ */
 class Policy implements Parameter
 {
     /**
@@ -12,24 +15,41 @@ class Policy implements Parameter
     protected $policy = [];
 
     /**
+     * policy: conditions.starts-with
+     *
      * @var string
      */
     protected $userDir;
 
     /**
+     * Either expireTime or expireAt must be used
+     * policy: expiration
+     *
      * @var int
      */
     protected $expireTime;
 
     /**
+     * Either expireTime or expireAt must be used
+     * policy: expiration
+     *
      * @var int
      */
     protected $expireAt;
 
     /**
+     * policy: conditions.content-length-range
+     *
      * @var int
      */
     protected $maxSize;
+
+    /**
+     * policy: conditions.bucket
+     *
+     * @var string
+     */
+    protected $bucket;
 
     /**
      * @param array $conditions
@@ -43,6 +63,31 @@ class Policy implements Parameter
         if (!is_null($expiration)) {
             $this->policy["expiration"] = $expiration;
         }
+    }
+
+    /**
+     * Examples:
+     * ["eq", "$success_action_status", "201"]
+     * ["in", "$content-type", ["image/jpg", "image/png"]]
+     * ["not-in", "$cache-control", ["no-cache"]]
+     *
+     * @param string $rule
+     * @param string $field
+     * @param mixed $value
+     * @return $this
+     */
+    public function setConditions($rule, $field, $value)
+    {
+        $this->policy["conditions"][] = [$rule,$field,$value];
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConditions()
+    {
+        return $this->policy["conditions"] ?? [];
     }
 
     /**
@@ -103,7 +148,7 @@ class Policy implements Parameter
      * @param int $expireAt
      * @return Policy
      */
-    public function setExpireAt(int $expireAt)
+    public function setExpireAt($expireAt)
     {
         $this->expireAt = $expireAt;
         return $this;
@@ -128,6 +173,24 @@ class Policy implements Parameter
     }
 
     /**
+     * @return string
+     */
+    public function getBucket()
+    {
+        return $this->bucket;
+    }
+
+    /**
+     * @param string $bucket
+     * @return Policy
+     */
+    public function setBucket($bucket)
+    {
+        $this->bucket = $bucket;
+        return $this;
+    }
+
+    /**
      * @param int $time
      * @return string
      */
@@ -146,6 +209,9 @@ class Policy implements Parameter
         }
         if ($this->expireAt) {
             $this->policy["expiration"] = $this->gmtIso8601($this->expireAt);
+        }
+        if ($this->bucket) {
+            $this->policy["conditions"][] = ["bucket" => $this->bucket];
         }
         if ($this->maxSize) {
             $this->policy["conditions"][] = ["content-length-range", 0, intval($this->maxSize)];

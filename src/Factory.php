@@ -38,7 +38,7 @@ class Factory implements FactoryContract
      */
     public function makeAccessKey()
     {
-        return new AccessKey($this->config["access_key_id"], $this->config["access_key_secret"], $this->config["bucket"], $this->config["endpoint"], $this->config["host"] ?? null);
+        return new AccessKey($this->config["access_key_id"], $this->config["access_key_secret"], $this->config["bucket"], $this->config["endpoint"], $this->config["domain"] ?? "", $this->config["use_ssl"] ?? true);
     }
 
     /**
@@ -47,6 +47,9 @@ class Factory implements FactoryContract
     public function makePolicy()
     {
         $policy = new Policy();
+        if ($this->config["bucket"]) {
+            $policy->setBucket($this->config["bucket"]);
+        }
         if (isset($this->config["expire_time"])) {
             $policy->setExpireTime($this->config["expire_time"]);
         }

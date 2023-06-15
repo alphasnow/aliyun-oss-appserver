@@ -32,19 +32,26 @@ class AccessKey implements Parameter
     protected $ossHost;
 
     /**
+     * @var bool
+     */
+    protected $useSSL;
+
+    /**
      * @param string $accessKeyId
      * @param string $accessKeySecret
      * @param string $ossBucket
      * @param string $ossEndpoint
      * @param string $ossHost
+     * @param boolean $useSSL
      */
-    public function __construct($accessKeyId, $accessKeySecret, $ossBucket, $ossEndpoint, $ossHost = null)
+    public function __construct($accessKeyId, $accessKeySecret, $ossBucket, $ossEndpoint, $ossHost = null, $useSSL = true)
     {
         $this->accessKeyId = $accessKeyId;
         $this->accessKeySecret = $accessKeySecret;
         $this->ossBucket = $ossBucket;
         $this->ossEndpoint = $ossEndpoint;
         $this->ossHost = $ossHost;
+        $this->useSSL = $useSSL;
     }
 
     /**
@@ -124,16 +131,20 @@ class AccessKey implements Parameter
     }
 
     /**
-     * @param bool $ssl
      * @return string
      */
-    public function getOssHost($ssl = true)
+    public function getOssHost()
     {
+        $protocol = $this->useSSL ? "https" : "http";
+
         if ($this->ossHost) {
-            return $this->ossHost;
+            if (substr($this->ossHost, 0, 4) === "http") {
+                return $this->ossHost;
+            }
+
+            return $protocol."://".$this->ossHost;
         }
 
-        $protocol = $ssl ? "https" : "http";
         return $protocol."://".$this->ossBucket.".".$this->ossEndpoint;
     }
 

@@ -4,8 +4,10 @@ return [
     "access_key_secret" => "",
     "bucket" => "",
     "endpoint" => "",
+    "domain"  => "",
+    "use_ssl" => true,
     "callback_url"=> "",
     "max_size"=> 1048576000,
-    "expire_time"=> 60,
+    "expire_time"=> 3600,
     "user_dir"=> "upload/"
 ];

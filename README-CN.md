@@ -18,11 +18,13 @@ composer require alphasnow/aliyun-oss-appserver
 ```env
 OSS_ACCESS_KEY_ID=<必填, 阿里云的AccessKeyId, 示例: LT************Hz>
 OSS_ACCESS_KEY_SECRET=<必填, 阿里云的AccessKeySecret, 示例: Q5**************************PD>
-OSS_BUCKET=<必填, 对象存储的Bucket, 示例: my-files>
+OSS_BUCKET=<必填, 对象存储的Bucket, 示例: x-storage>
 OSS_ENDPOINT=<必填, 对象存储的Endpoint, 示例: oss-cn-hangzhou.aliyuncs.com>
-OSS_CALLBACK_URL=<选填, 默认回调地址, 示例: https://my-domain.com/callback>
-OSS_POLICY_MAX_SIZE=<选填, 默认最大文件大小1000MB, 示例: 1048576000>
-OSS_POLICY_EXPIRE_TIME=<选填, 默认过期时间3600秒, 示例: 3600>
+OSS_SSL=<选填, 是否使用SSL, 示例: true>
+OSS_DOMAIN=<选填, 域名地址, 示例: x-storage.domain.com>
+OSS_CALLBACK_URL=<选填, 默认回调地址, 示例: https://api.domain.com/callback>
+OSS_POLICY_MAX_SIZE=<选填, 默认最大文件大小1GB, 示例: 1048576000>
+OSS_POLICY_EXPIRE_TIME=<选填, 默认过期时间1小时, 示例: 3600>
 OSS_POLICY_USER_DIR=<选填, 默认上传目录upload/, 示例: upload/>
 ```
 
@@ -32,6 +34,9 @@ php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
 ```
 
 ## 快速使用
+### OSS 配置
+- 跨域设置 / 创建规则 / 示例: `来源:*, 允许 Methods:POST`
+
 ### Laravel服务端
 添加路由`routes/api.php`, 使用默认控制器.
 ```php
@@ -41,12 +46,11 @@ Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\ServerC
 
 ### Web客户端
 1. 下载 [https://help.aliyun.com/document_detail/31927.html#section-kx3-tsk-gfb](https://help.aliyun.com/document_detail/31927.html#section-kx3-tsk-gfb)
-2. 找到`upload.js`的第30行代码,修改为实际服务器地址
+2. 找到`upload.js`的第30行代码,修改为实际服务器地址, 示例: `http://laravel.local`
     ```js
     // serverUrl = "http://88.88.88.88:8888"
     serverUrl = "http://laravel.local/api/app-server/oss-token"
     ```
-3. OSS对象存储的对应bucket设置Cors(Post打勾）
 
 ## 示例
 [单文件服务与客户端的示例](examples)

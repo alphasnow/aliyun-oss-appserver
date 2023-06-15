@@ -72,7 +72,9 @@ class Token implements TokenContract
         $resp->setPolicy($this->encodePolicy($this->policy->toArray()));
         $resp->setSignature($this->generateSignature($resp->getPolicy(), $this->access->getAccessKeySecret()));
         $resp->setExpire($this->policy->getExpireAt());
-        $resp->setCallback($this->encodeCallback($this->callback->toArray()));
+        if ($this->callback->getCallbackUrl()) {
+            $resp->setCallback($this->encodeCallback($this->callback->toArray()));
+        }
         $resp->setDir($this->policy->getUserDir());
         return $resp;
     }

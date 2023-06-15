@@ -7,6 +7,7 @@ use AlphaSnow\OSS\AppServer\Contracts\Parameter;
 class Response implements Parameter
 {
     /**
+     * @required
      * @var string
      */
     protected $accessId;
@@ -15,10 +16,12 @@ class Response implements Parameter
      */
     protected $host;
     /**
+     * @required
      * @var string
      */
     protected $policy;
     /**
+     * @required
      * @var string
      */
     protected $signature;
@@ -29,11 +32,11 @@ class Response implements Parameter
     /**
      * @var string
      */
-    protected $callback;
+    protected $callback = "";
     /**
      * @var string
      */
-    protected $dir;
+    protected $dir = "";
 
     /**
      * @return string
