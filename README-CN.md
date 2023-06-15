@@ -1,6 +1,8 @@
 [English](README.md) | 简体中文  
 
 # AliYun OSS AppServer
+![aliyun-oss-appserver](https://socialify.git.ci/alphasnow/aliyun-oss-appserver/image?description=1&language=1&name=1&owner=1&pattern=Plus&theme=Auto)
+
 Web端直接上传数据至OSS, 服务端签名直传并设置上传回调.
 
 [![Latest Stable Version](https://poser.pugx.org/alphasnow/aliyun-oss-appserver/v/stable)](https://packagist.org/packages/alphasnow/aliyun-oss-appserver)

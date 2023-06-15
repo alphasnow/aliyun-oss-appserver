@@ -1,6 +1,8 @@
 English | [简体中文](README-CN.md)  
 
 # AliYun OSS AppServer
+![aliyun-oss-appserver](https://socialify.git.ci/alphasnow/aliyun-oss-appserver/image?description=1&language=1&name=1&owner=1&pattern=Plus&theme=Auto)
+
 Upload data to OSS through Web applications.
 Add signatures on the server, configure upload callback, and directly transfer data.
 
@@ -27,7 +29,6 @@ OSS_CALLBACK_URL=<Default callback address, Optional, Example: https://api.domai
 OSS_POLICY_MAX_SIZE=<Default maximum file size 1GB, Optional, Example: 1048576000>
 OSS_POLICY_EXPIRE_TIME=<Default expiration time 1 hour, Optional, Example: 3600>
 OSS_POLICY_USER_DIR=<Default Upload Directory upload/, Optional, Example: upload/>
-
 ```
 
 (Optional) Modify the config file `config/oss-appserver.php`
