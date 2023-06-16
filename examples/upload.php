@@ -12,7 +12,7 @@ $tokenArr = $token->response()->toArray();
 
 $formData = [
     'name'=>'readme.txt',
-    'key'=>'${filename}', // original name or random string name
+    'key'=>$tokenArr['dir'].'${filename}', // original name or random string name
     'policy'=>$tokenArr['policy'],
     'OSSAccessKeyId'=>$tokenArr['accessid'],
     'success_action_status'=>200,
