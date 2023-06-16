@@ -11,6 +11,11 @@ if ($status == false) {
     echo json_encode(["status" => "fail"]);
     exit;
 }
-// $filename = $_POST["filename"] ?? "";
+if($_SERVER["HTTP_CONTENT_TYPE"] == "application/json"){
+    $data = json_decode(file_get_contents("php://input"),true);
+}else{
+    $data = $_POST;
+}
+// $filename = $data["filename"] ?? "";
 header("Content-Type: application/json; charset=utf-8");
-echo json_encode(["status" => "ok","data"=>$_POST]);
+echo json_encode(["status" => "ok","data"=>$data]);

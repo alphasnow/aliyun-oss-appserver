@@ -8,7 +8,9 @@ return [
     "use_ssl" => env("OSS_SSL", true),
     "domain" => env("OSS_DOMAIN", ""),
     "callback_url" => env("OSS_CALLBACK_URL", ""),
+    "callback_body" => env("OSS_CALLBACK_BODY", null),
+    "callback_body_type" => env("OSS_CALLBACK_BODY_TYPE", null),
     "max_size" => env("OSS_POLICY_MAX_SIZE", 1048576000),
     "expire_time" => env("OSS_POLICY_EXPIRE_TIME", 3600),
-    "user_dir" => env("OSS_POLICY_USER_DIR", "upload/"),
+    "user_dir" => env("OSS_POLICY_USER_DIR", "upload/")
 ];
