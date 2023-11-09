@@ -33,7 +33,7 @@ OSS_POLICY_USER_DIR=<Default Upload Directory upload/, Optional, Example: upload
 
 (Optional) Modify the config file `config/oss-appserver.php`
 ```bash
-php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
+php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\Laravel\ServiceProvider
 ```
 
 ## Usage
