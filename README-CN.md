@@ -32,7 +32,7 @@ OSS_POLICY_USER_DIR=<选填, 默认上传目录upload/, 示例: upload/>
 
 (可选) 修改配置文件 `config/oss-appserver.php`
 ```bash
-php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\ServiceProvider
+php artisan vendor:publish --provider=AlphaSnow\OSS\AppServer\Laravel\ServiceProvider
 ```
 
 ## 快速使用
