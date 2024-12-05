@@ -57,7 +57,33 @@ Route::post("app-server/oss-callback", "\AlphaSnow\OSS\AppServer\Laravel\ServerC
     ```
 
 ## Examples
+### Use js client to upload file
 [Example of single-file services with clients](examples)
+
+### Use curl to upload file
+1. Get the token
+    ```json
+    {
+        "accessid": "access_key_id",
+        "host": "https://bucket.endpoint.com",
+        "policy": "eyJleHBpcmF0aW9uIjoiMjAyMi0wMy0yMVQwODoyNzoxNi4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ1cGxvYWRcLyJdXX0=",
+        "signature": "P2qcKX8/CKiCzEiDh6CE02HoTRk=",
+        "expire": 1647851236,
+        "callback": "eyJjYWxsYmFja1VybCI6Imh0dHA6XC9cL2RvbWFpbi5jb21cL2NhbGxiYWNrIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JHtvYmplY3R9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZoZWlnaHQ9JHtpbWFnZUluZm8uaGVpZ2h0fSZ3aWR0aD0ke2ltYWdlSW5mby53aWR0aH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb25cL3gtd3d3LWZvcm0tdXJsZW5jb2RlZCJ9",
+        "dir": "upload/"
+    }
+    ```
+2. Upload file
+    ```bash
+    curl --location "https://bucket.endpoint.com" \
+    --form 'key="upload/${filename}"' \
+    --form 'policy="eyJleHBpcmF0aW9uIjoiMjAyMi0wMy0yMVQwODoyNzoxNi4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ1cGxvYWRcLyJdXX0="' \
+    --form 'OSSAccessKeyId="access_key_id"' \
+    --form 'success_action_status="200"' \
+    --form 'callback="eyJjYWxsYmFja1VybCI6Imh0dHA6XC9cL2RvbWFpbi5jb21cL2NhbGxiYWNrIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JHtvYmplY3R9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZoZWlnaHQ9JHtpbWFnZUluZm8uaGVpZ2h0fSZ3aWR0aD0ke2ltYWdlSW5mby53aWR0aH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb25cL3gtd3d3LWZvcm0tdXJsZW5jb2RlZCJ9"' \
+    --form 'signature="P2qcKX8/CKiCzEiDh6CE02HoTRk="' \
+    --form 'file=@"~/Downloads/image.jpg"'
+    ```
 
 ### Dynamic configuration
 ```php
